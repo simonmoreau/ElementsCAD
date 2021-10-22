@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HyparRunner": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\\\Users\\\\Simon\\\\source\\\\repos\\\\BuildingBlocks\\\\Envelope\\\\EnvelopeByCenterline\\\\src\\\\bin\\\\Debug\\\\netcoreapp3.1\\\\EnvelopeByCenterline.dll\""
+    }
+  }
+}

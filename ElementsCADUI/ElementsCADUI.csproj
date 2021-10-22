@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\ConsoleAppWrapper.cs" />
     <Page Include="ElementsCADUI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

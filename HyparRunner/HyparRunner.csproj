@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Hypar.Elements" Version="0.7.3" />
+    <PackageReference Include="Hypar.Functions" Version="0.7.3" />
+    <PackageReference Include="GeometryEx" Version="6.10.0" />
+  </ItemGroup>
+
+</Project>
