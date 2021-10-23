@@ -12,13 +12,18 @@ namespace HyparRunner
     class FunctionRunner
     {
 
-        public void RunFunction(string dllPath, string functionName)
+        public void RunFunction(Function function)
         {
 
             Init();
 
-            Assembly DLL = Assembly.LoadFile(dllPath);
+            string functionName = function.FunctionDefinition.Name.Replace(" ", "");
 
+            string dllPath = Path.Combine(function.Directory, functionName  + ".dll");
+            string dependenciesPathNew = Path.Combine(function.Directory, functionName + ".Dependencies.dll");
+
+            // Load function dll
+            Assembly DLL = Assembly.LoadFile(dllPath);
             // Load dependencies
             string dependenciesPath = Path.GetDirectoryName(dllPath) + "\\" + Path.GetFileNameWithoutExtension(dllPath) + ".Dependencies.dll";
             if (File.Exists(dependenciesPath))
@@ -26,7 +31,6 @@ namespace HyparRunner
                 Assembly.LoadFile(dependenciesPath);
             }
 
-            // string functionName = "EnvelopeByCenterline";
             Type[] assemblyTypes = DLL.GetExportedTypes();
 
             Type functionType = assemblyTypes.Where(t => t.Name == functionName).FirstOrDefault();
@@ -39,6 +43,12 @@ namespace HyparRunner
                 object inputs = Activator.CreateInstance(functionTypeInputs);
 
                 S3Args inputsBase = inputs as S3Args;
+
+                foreach (KeyValuePair<string,object> keyValuePair in function.InputsValues)
+                {
+                    PropertyInfo propertyInfo = inputs.GetType().GetProperty(keyValuePair.Key);
+                    propertyInfo.SetValue(inputs, keyValuePair.Value, null);
+                }
 
                 Dictionary<string, Model> inputModels = new Dictionary<string, Model>();
 
