@@ -6,9 +6,5 @@
              xmlns:local="clr-namespace:ElementsCADUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Border BorderBrush="Blue" BorderThickness="10">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30">Hello there !</TextBlock>
-        </Border>
-    </Grid>
+    <Grid x:Name="mainGrid" />
 </UserControl>

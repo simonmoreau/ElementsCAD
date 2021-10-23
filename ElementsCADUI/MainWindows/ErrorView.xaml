@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ElementsCADUI.MainWindows.ErrorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElementsCADUI.MainWindows"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="10,0,10,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,10,0,0">
+            <ContentControl Foreground="Red" Template="{DynamicResource ErrorIcon}" SnapsToDevicePixels="True" />
+            <TextBlock>Sorry, an error has occurred...</TextBlock>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Margin="0,10,0,0">Please try to log in again</TextBlock>
+        <Grid x:Name="NavBar" Margin="0,10,0,10" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Go back to the login page"
+                    Command="{Binding BackToLoginCommand}"
+                    Grid.Column="1" />
+        </Grid>
+        <GroupBox Header="Error details" Grid.Row="3">
+            <Grid Margin="5,10,5,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Button Content="Copy Error details"
+                    Command="{Binding CopyErrorCommand}"
+                    Grid.Row="0" HorizontalAlignment="Left" />
+                <TextBlock TextWrapping="Wrap" Grid.Row="2" Text="{Binding ErrorMessage}"/>
+                <Expander Grid.Row="4">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ErrorDetails}"/>
+                </Expander>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>
