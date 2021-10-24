@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:models="clr-namespace:ElementsCADUI.Models"
              xmlns:local="clr-namespace:ElementsCADUI.MainWindows"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="300">
@@ -12,6 +13,24 @@
                 <StackPanel>
                     <TextBlock Text="{Binding FunctionDefinition.Name}"/>
                     <TextBlock Text="{Binding FunctionDefinition.Description}"/>
+                    <ListView ItemsSource="{Binding Inputs}"
+                          HorizontalContentAlignment="Stretch"
+                          ScrollViewer.CanContentScroll="False"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.Resources>
+                            <DataTemplate DataType="{x:Type models:InputDisplayable}">
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                            <!--<DataTemplate DataType="{x:Type models:DisplayedEvent}">
+                                <event:Event DisplayedEvent="{Binding}"></event:Event>
+                            </DataTemplate>-->
+                        </ListView.Resources>
+                        <ListView.Template>
+                            <ControlTemplate>
+                                <ItemsPresenter></ItemsPresenter>
+                            </ControlTemplate>
+                        </ListView.Template>
+                    </ListView>
                 </StackPanel>
                 <Button VerticalAlignment="Top" HorizontalAlignment="Right"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.RemoveFunctionCommand }"

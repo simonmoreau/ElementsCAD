@@ -1,6 +1,7 @@
 ﻿using ElementsCADUI.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,16 @@ namespace ElementsCADUI.Models
         {
             _directory = path;
             _functionDefinition = new FunctionDefinitionDisplayable(functionDefinition);
+
             _inputsValues = new Dictionary<string, object>();
+            _inputs = new ObservableCollection<InputDisplayable>();
+            foreach (InputElement inputElement in functionDefinition.Inputs)
+            {
+                _inputsValues.Add(inputElement.InputClass.Name.ToString(), null);
+                _inputs.Add(new InputDisplayable(inputElement));
+            }
+
+            
         }
 
 
@@ -37,6 +47,29 @@ namespace ElementsCADUI.Models
         {
             get { return _inputsValues; }
             set { SetProperty(ref _inputsValues, value); }
+        }
+
+        private ObservableCollection<InputDisplayable> _inputs;
+        public ObservableCollection<InputDisplayable> Inputs
+        {
+            get { return _inputs; }
+            set { SetProperty(ref _inputs, value); }
+        }
+
+    }
+
+    class InputDisplayable : BindableBase
+    {
+        public InputDisplayable(InputElement inputElement)
+        {
+            _name = inputElement.InputClass.Name.ToString();
+        }
+
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set { SetProperty(ref _name, value); }
         }
 
     }
