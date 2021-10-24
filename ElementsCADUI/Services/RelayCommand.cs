@@ -58,6 +58,7 @@ namespace ElementsCADUI.Services
     {
         Action<T> _TargetExecuteMethod;
         Func<T, bool> _TargetCanExecuteMethod;
+        private Action onRemoveFunctionCommand;
 
         public RelayCommand(Action<T> executeMethod)
         {
@@ -68,6 +69,11 @@ namespace ElementsCADUI.Services
         {
             _TargetExecuteMethod = executeMethod;
             _TargetCanExecuteMethod = canExecuteMethod;
+        }
+
+        public RelayCommand(Action onRemoveFunctionCommand)
+        {
+            this.onRemoveFunctionCommand = onRemoveFunctionCommand;
         }
 
         public void RaiseCanExecuteChanged()

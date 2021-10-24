@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ElementsCADWindow"
         xmlns:ElementsCADUI="clr-namespace:ElementsCADUI;assembly=ElementsCADUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="300">
     <Grid>
         <ElementsCADUI:ElementsCADUI></ElementsCADUI:ElementsCADUI>
     </Grid>

@@ -5,13 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElementsCADUI.MainWindows"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate x:Key="FunctionTemplate">
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="{Binding FunctionDefinition.Name}"/>
+                    <TextBlock Text="{Binding FunctionDefinition.Description}"/>
+                </StackPanel>
+                <Button VerticalAlignment="Top" HorizontalAlignment="Right"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.RemoveFunctionCommand }"
+                        CommandParameter="{Binding}">X</Button>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
-        <Border BorderBrush="Red" BorderThickness="10">
-            <StackPanel>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30">Hello there !</TextBlock>
-                <Button Command="{Binding ClickCommand}">Error !</Button>
-            </StackPanel>
-        </Border>
+        <StackPanel Orientation="Vertical">
+            <TextBox>MainWindow</TextBox>
+            <ListBox ItemsSource="{Binding Functions}"
+                 ItemTemplate="{StaticResource FunctionTemplate}"
+                 HorizontalContentAlignment="Stretch"
+                 ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            </ListBox>
+            <Button HorizontalAlignment="Center" Command="{Binding AddFunctionCommand}">Add function</Button>
+        </StackPanel>
     </Grid>
 </UserControl>

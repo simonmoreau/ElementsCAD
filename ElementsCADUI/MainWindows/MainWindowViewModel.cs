@@ -1,9 +1,13 @@
 ﻿using ElementsCADUI.Services;
+using ElementsCADUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32;
+using System.IO;
+using System.Collections.ObjectModel;
 
 namespace ElementsCADUI.MainWindows
 {
@@ -14,14 +18,39 @@ namespace ElementsCADUI.MainWindows
         public MainWindowViewModel(MainWindows.ErrorViewModel errorViewModel)
         {
             _errorViewModel = errorViewModel;
-            ClickCommand = new RelayCommand(OnClickCommand);
+            _functions = new ObservableCollection<FunctionDisplayable>();
+            AddFunctionCommand = new RelayCommand(OnAddFunctionCommand);
+            RemoveFunctionCommand = new RelayCommand<FunctionDisplayable>(OnRemoveFunctionCommand);
         }
 
-        public RelayCommand ClickCommand { get; private set; }
+        public RelayCommand AddFunctionCommand { get; private set; }
 
-        private void OnClickCommand()
+        private void OnAddFunctionCommand()
         {
-            _errorViewModel.ThrowError(new Exception("Hello error !"));
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (openFileDialog.ShowDialog() == true)
+            {
+                FunctionDefinition functionDefinition = FunctionDefinition.FromJson(File.ReadAllText(openFileDialog.FileName));
+
+                string directoryPath = Path.GetDirectoryName(openFileDialog.FileName);
+                Functions.Add(new FunctionDisplayable(functionDefinition, directoryPath));
+            }
+        }
+
+        public RelayCommand<FunctionDisplayable> RemoveFunctionCommand { get; private set; }
+
+        private void OnRemoveFunctionCommand(FunctionDisplayable functionDisplayable)
+        {
+            Functions.Remove(functionDisplayable);
+        }
+
+        private ObservableCollection<FunctionDisplayable> _functions;
+        public ObservableCollection<FunctionDisplayable> Functions
+        {
+            get { return _functions; }
+            set { SetProperty(ref _functions, value); }
         }
     }
 }
