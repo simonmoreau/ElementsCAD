@@ -17,13 +17,65 @@ namespace ElementsCADUI.Models
 
             _inputsValues = new Dictionary<string, object>();
             _inputs = new ObservableCollection<InputDisplayable>();
-            foreach (InputElement inputElement in functionDefinition.Inputs)
+
+            if (functionDefinition.InputSchema != null)
             {
-                _inputsValues.Add(inputElement.InputClass.Name.ToString(), null);
-                _inputs.Add(new InputDisplayable(inputElement));
+                foreach (KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property in functionDefinition.InputSchema.Properties)
+                {
+                    TypeUnion typeUnion = property.Value.Type ?? default(TypeUnion);
+
+                    //typeUnion.Enum
+                    //switch ()
+                    //{
+                    //    default:
+                    //        break;
+                    //}
+                }
             }
 
-            
+            if (functionDefinition.Inputs != null)
+            {
+                foreach (InputElement inputElement in functionDefinition.Inputs)
+                {
+
+                    _inputsValues.Add(inputElement.InputClass.Name.ToString(), null);
+
+                    switch (inputElement.InputClass.Type)
+                    {
+                        case InputType.Boolean:
+                            _inputs.Add(new InputBooleanToggle(inputElement));
+                            break;
+                        case InputType.Choice:
+                            _inputs.Add(new InputDisplayable(inputElement));
+                            break;
+                        case InputType.Data:
+                            _inputs.Add(new InputDisplayable(inputElement));
+                            break;
+                        case InputType.Geometry:
+                            _inputs.Add(new InputDisplayable(inputElement));
+                            break;
+                        case InputType.List:
+                            _inputs.Add(new InputDisplayable(inputElement));
+                            break;
+                        case InputType.Location:
+                            _inputs.Add(new InputDisplayable(inputElement));
+                            break;
+                        case InputType.Number:
+                            _inputs.Add(new InputNumberField(inputElement));
+                            break;
+                        case InputType.Range:
+                            _inputs.Add(new InputNumberSlider(inputElement));
+                            break;
+                        case InputType.String:
+                            _inputs.Add(new InputStringField(inputElement));
+                            break;
+                        default:
+                            _inputs.Add(new InputDisplayable(inputElement));
+                            break;
+                    }
+                }
+            }
+
         }
 
 
@@ -54,22 +106,6 @@ namespace ElementsCADUI.Models
         {
             get { return _inputs; }
             set { SetProperty(ref _inputs, value); }
-        }
-
-    }
-
-    class InputDisplayable : BindableBase
-    {
-        public InputDisplayable(InputElement inputElement)
-        {
-            _name = inputElement.InputClass.Name.ToString();
-        }
-
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
         }
 
     }

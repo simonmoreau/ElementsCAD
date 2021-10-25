@@ -70,6 +70,17 @@
       <DependentUpon>FunctionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Function\FunctionViewModel.cs" />
+    <Compile Include="InputControls\IntegerField.xaml.cs">
+      <DependentUpon>IntegerField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InputControls\NumberField.xaml.cs">
+      <DependentUpon>NumberField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InputControls\IntegerRangeRule.cs" />
+    <Compile Include="InputControls\NumberRangeRule.cs" />
+    <Compile Include="InputControls\NumberSlider.xaml.cs">
+      <DependentUpon>NumberSlider.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindows\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
@@ -84,6 +95,7 @@
     <Compile Include="MainWindows\StartingViewModel.cs" />
     <Compile Include="Models\FunctionDefinition.cs" />
     <Compile Include="Models\FunctionDisplayable.cs" />
+    <Compile Include="Models\InputDisplayable.cs" />
     <Compile Include="Services\BindableBase.cs" />
     <Compile Include="Services\ConsoleAppWrapper.cs" />
     <Compile Include="Services\RelayCommand.cs" />
@@ -96,6 +108,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Function\FunctionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputControls\IntegerField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputControls\NumberField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputControls\NumberFieldStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputControls\NumberSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

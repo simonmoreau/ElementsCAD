@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:models="clr-namespace:ElementsCADUI.Models"
+             xmlns:controls="clr-namespace:ElementsCADUI.InputControls"
              xmlns:local="clr-namespace:ElementsCADUI.MainWindows"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="300">
@@ -18,12 +19,34 @@
                           ScrollViewer.CanContentScroll="False"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListView.Resources>
-                            <DataTemplate DataType="{x:Type models:InputDisplayable}">
-                                <TextBlock Text="{Binding Name}"/>
+                            <DataTemplate DataType="{x:Type models:InputNumberField}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock>input number</TextBlock>
+                                    <controls:NumberField Input="{Binding}" Value="{Binding Value}"/>
+                                    <TextBlock Text="{Binding Value}"/>
+                                </StackPanel>
                             </DataTemplate>
-                            <!--<DataTemplate DataType="{x:Type models:DisplayedEvent}">
-                                <event:Event DisplayedEvent="{Binding}"></event:Event>
-                            </DataTemplate>-->
+                            <DataTemplate DataType="{x:Type models:InputNumberSlider}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock>input InputNumberSlider</TextBlock>
+                                    <controls:NumberSlider Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                                    <TextBlock Text="{Binding Value}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:InputIntegerField}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock>input InputIntegerField</TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:InputDisplayable}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock>input InputDisplayable</TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
                         </ListView.Resources>
                         <ListView.Template>
                             <ControlTemplate>

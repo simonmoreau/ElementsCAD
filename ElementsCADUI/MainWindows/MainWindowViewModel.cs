@@ -29,7 +29,7 @@ namespace ElementsCADUI.MainWindows
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            openFileDialog.InitialDirectory = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\HyparJson";
             if (openFileDialog.ShowDialog() == true)
             {
                 FunctionDefinition functionDefinition = FunctionDefinition.FromJson(File.ReadAllText(openFileDialog.FileName));
