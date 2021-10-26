@@ -70,6 +70,9 @@
       <DependentUpon>FunctionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Function\FunctionViewModel.cs" />
+    <Compile Include="InputControls\BooleanToggle.xaml.cs">
+      <DependentUpon>BooleanToggle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InputControls\IntegerField.xaml.cs">
       <DependentUpon>IntegerField.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Function\FunctionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputControls\BooleanToggle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

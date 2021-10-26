@@ -22,28 +22,41 @@
                             <DataTemplate DataType="{x:Type models:InputNumberField}">
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
                                     <TextBlock>input number</TextBlock>
-                                    <controls:NumberField Input="{Binding}" Value="{Binding Value}"/>
+                                    <controls:NumberField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
                                     <TextBlock Text="{Binding Value}"/>
                                 </StackPanel>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type models:InputNumberSlider}">
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
                                     <TextBlock>input InputNumberSlider</TextBlock>
                                     <controls:NumberSlider Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                                    <TextBlock Text="{Binding Value}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:InputBooleanToggle}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock>input InputNumberSlider</TextBlock>
+                                    <controls:BooleanToggle Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
                                     <TextBlock Text="{Binding Value}"/>
                                 </StackPanel>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type models:InputIntegerField}">
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
                                     <TextBlock>input InputIntegerField</TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type models:InputDisplayable}">
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
                                     <TextBlock>input InputDisplayable</TextBlock>
                                 </StackPanel>
                             </DataTemplate>

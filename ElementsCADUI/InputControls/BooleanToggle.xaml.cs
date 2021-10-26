@@ -17,74 +17,61 @@ using System.Windows.Shapes;
 namespace ElementsCADUI.InputControls
 {
     /// <summary>
-    /// Interaction logic for NumberField.xaml
+    /// Interaction logic for BooleanToggle.xaml
     /// </summary>
-    public partial class NumberField : UserControl
+    public partial class BooleanToggle : UserControl
     {
-        public NumberField()
+        public BooleanToggle()
         {
             InitializeComponent();
-            SetBinding();
-        }
-
-        private void SetBinding()
-        {
-            Binding myBinding = new Binding();
-            myBinding.Source = this;
-            myBinding.Path = new PropertyPath("Value");
-            NumberRangeRule numberRangeRule = new NumberRangeRule();
-            numberRangeRule.Min = Input?.Minimum ?? default(double);
-            numberRangeRule.Max = Input?.Maximum ?? default(double);
-            myBinding.ValidationRules.Add(numberRangeRule);
-            myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            BindingOperations.SetBinding(textBox, TextBox.TextProperty, myBinding);
         }
 
         public static readonly DependencyProperty ValueProperty =
-DependencyProperty.Register("Value", typeof(double), typeof(NumberField), new
-PropertyMetadata(0.0, new PropertyChangedCallback(OnValueChanged)));
+DependencyProperty.Register("Value", typeof(bool), typeof(BooleanToggle), new
+PropertyMetadata(true, new PropertyChangedCallback(OnValueChanged)));
 
-        public double Value
+        public bool Value
         {
-            get { return (double)GetValue(ValueProperty); }
+            get { return (bool)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
         private static void OnValueChanged(DependencyObject d,
            DependencyPropertyChangedEventArgs e)
         {
-            NumberField UserControl1Control = d as NumberField;
+            BooleanToggle UserControl1Control = d as BooleanToggle;
             UserControl1Control.OnValueChanged(e);
         }
 
         private void OnValueChanged(DependencyPropertyChangedEventArgs e)
         {
-            // TextLabel.Text = e.NewValue?.ToString();
+            bool? value = e.NewValue as bool?;
+            // TextLabel.Text = e.NewValue? as 
+            checkbox.IsChecked = value;
         }
 
         public static readonly DependencyProperty InputProperty =
-DependencyProperty.Register("Input", typeof(InputNumberField), typeof(NumberField), new
+DependencyProperty.Register("Input", typeof(InputBooleanToggle), typeof(BooleanToggle), new
 PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
 
-        public InputNumberField Input
+        public InputBooleanToggle Input
         {
-            get { return (InputNumberField)GetValue(InputProperty); }
+            get { return (InputBooleanToggle)GetValue(InputProperty); }
             set { SetValue(InputProperty, value); }
         }
 
         private static void OnInputChanged(DependencyObject d,
            DependencyPropertyChangedEventArgs e)
         {
-            NumberField UserControl1Control = d as NumberField;
+            BooleanToggle UserControl1Control = d as BooleanToggle;
             UserControl1Control.OnInputChanged(e);
         }
 
         private void OnInputChanged(DependencyPropertyChangedEventArgs e)
         {
-            InputNumberField inputNumberField = e.NewValue as InputNumberField;
-
-            if (inputNumberField != null)
+            InputBooleanToggle inputBooleanToggle = e.NewValue as InputBooleanToggle;
+            if (inputBooleanToggle != null)
             {
-                SetBinding();
+                
             }
             // TextLabel.Text = e.NewValue?.ToString();
         }

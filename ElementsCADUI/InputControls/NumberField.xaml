@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElementsCADUI.InputControls"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d"
              d:DesignHeight="20" d:DesignWidth="100">
     <UserControl.Resources>
@@ -15,6 +14,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TextBox Name="textBox" Validation.ErrorTemplate="{StaticResource validationTemplate}" Style="{StaticResource textBoxInError}"/>
+        <TextBox Name="textBox" Validation.ErrorTemplate="{StaticResource validationTemplate}" Style="{StaticResource textBoxInError}"
+                 Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Value}"/>
     </Grid>
 </UserControl>

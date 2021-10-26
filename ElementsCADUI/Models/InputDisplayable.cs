@@ -9,10 +9,20 @@ namespace ElementsCADUI.Models
 {
     public class InputDisplayable : BindableBase
     {
-        public InputDisplayable(InputElement inputElement)
+        public InputDisplayable(InputElement inputElement, int order)
         {
             _name = inputElement.InputClass.Name.ToString();
+            HyparOrder = order;
         }
+
+        public InputDisplayable(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property)
+        {
+            _name = property.Key;
+            _description = property.Value.Description;
+            HyparOrder = property.Value.HyparOrder ?? default(int);
+        }
+
+        public int HyparOrder { get;}
 
         private string _name;
         public string Name
@@ -21,13 +31,33 @@ namespace ElementsCADUI.Models
             set { SetProperty(ref _name, value); }
         }
 
+        private string _description;
+        public string Description
+        {
+            get { return _description; }
+            set { SetProperty(ref _description, value); }
+        }
+
     }
 
     public class InputNumberField : InputDisplayable
     {
-        public InputNumberField(InputElement inputElement) : base(inputElement)
+        public InputNumberField(InputElement inputElement, int order) : base(inputElement, order)
         {
-            _value = 0;
+            _minimum = inputElement.InputClass.Min ?? default(double);
+            _maximum = inputElement.InputClass.Max ?? default(double);
+            _step = inputElement.InputClass.Step ?? default(double);
+            _value = inputElement.InputClass.Min ?? default(double);
+        }
+
+        public InputNumberField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            _minimum = property.Value.Minimum ?? default(double);
+            _maximum = property.Value.Maximum ?? default(double);
+            _step = property.Value.MultipleOf ?? default(double);
+
+            double? defaultValue = property.Value.Default as double?;
+            _value = defaultValue ?? property.Value.Minimum ?? default(double);
         }
 
         private string _hyparUnitType;
@@ -43,16 +73,46 @@ namespace ElementsCADUI.Models
             get { return _value; }
             set { SetProperty(ref _value, value); }
         }
+
+        private double _minimum;
+        public double Minimum
+        {
+            get { return _minimum; }
+            set { SetProperty(ref _minimum, value); }
+        }
+
+        private double _maximum;
+        public double Maximum
+        {
+            get { return _maximum; }
+            set { SetProperty(ref _maximum, value); }
+        }
+
+        private double _step;
+        public double Step
+        {
+            get { return _step; }
+            set { SetProperty(ref _step, value); }
+        }
     }
 
     public class InputNumberSlider : InputDisplayable
     {
-        public InputNumberSlider(InputElement inputElement) : base(inputElement)
+        public InputNumberSlider(InputElement inputElement, int order) : base(inputElement, order)
         {
             _minimum = inputElement.InputClass.Min ?? default(double);
             _maximum = inputElement.InputClass.Max ?? default(double);
             _step = inputElement.InputClass.Step ?? default(double);
             _value = inputElement.InputClass.Min ?? default(double);
+        }
+
+        public InputNumberSlider(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            _minimum = property.Value.Minimum ?? default(double);
+            _maximum = property.Value.Maximum ?? default(double);
+            _step = property.Value.MultipleOf ?? default(double);
+            double? defaultValue = property.Value.Default as double?;
+            _value = defaultValue ?? property.Value.Minimum ?? default(double);
         }
 
         private string _hyparUnitType;
@@ -93,7 +153,7 @@ namespace ElementsCADUI.Models
 
     public class InputIntegerField : InputDisplayable
     {
-        public InputIntegerField(InputElement inputElement) : base(inputElement)
+        public InputIntegerField(InputElement inputElement, int order) : base(inputElement, order)
         {
             _value = 0;
         }
@@ -113,11 +173,17 @@ namespace ElementsCADUI.Models
         }
     }
 
-    class InputBooleanToggle : InputDisplayable
+    public class InputBooleanToggle : InputDisplayable
     {
-        public InputBooleanToggle(InputElement inputElement) : base(inputElement)
+        public InputBooleanToggle(InputElement inputElement, int order) : base(inputElement, order)
         {
             _value = false;
+        }
+
+        public InputBooleanToggle(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            bool? defaultValue = property.Value.Default as bool?;
+            _value = defaultValue ?? default(bool);
         }
 
         private bool _value;
@@ -130,7 +196,7 @@ namespace ElementsCADUI.Models
 
     class InputStringField : InputDisplayable
     {
-        public InputStringField(InputElement inputElement) : base(inputElement)
+        public InputStringField(InputElement inputElement, int order) : base(inputElement, order)
         {
             _value = "";
         }
@@ -145,7 +211,7 @@ namespace ElementsCADUI.Models
 
     class InputSelectDropdown : InputDisplayable
     {
-        public InputSelectDropdown(InputElement inputElement) : base(inputElement)
+        public InputSelectDropdown(InputElement inputElement, int order) : base(inputElement, order)
         {
             _value = "";
         }

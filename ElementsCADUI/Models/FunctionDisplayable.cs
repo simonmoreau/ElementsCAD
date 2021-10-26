@@ -22,8 +22,52 @@ namespace ElementsCADUI.Models
             {
                 foreach (KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property in functionDefinition.InputSchema.Properties)
                 {
-                    TypeUnion typeUnion = property.Value.Type ?? default(TypeUnion);
+                    HyparFunctionInputSchemaMetaSchemaValue value = property.Value;
 
+                    if (value.HyparStyle == HyparStyle.Number)
+                    {
+                        _inputs.Add(new InputNumberField(property));
+                    }
+                    else if (value.HyparStyle == HyparStyle.Standard)
+                    {
+
+                    }
+                    else if (value.HyparStyle == HyparStyle.Matrix)
+                    {
+
+                    }
+                    else if (value.HyparStyle == HyparStyle.Row)
+                    {
+
+                    }
+                    else
+                    {
+                        if (value.Type.HasValue)
+                        {
+                            switch (value.Type.Value.Enum)
+                            {
+                                case SimpleTypes.Array:
+                                    break;
+                                case SimpleTypes.Boolean:
+                                        _inputs.Add(new InputBooleanToggle(property));
+                                    break;
+                                case SimpleTypes.Integer:
+                                    break;
+                                case SimpleTypes.Null:
+                                    break;
+                                case SimpleTypes.Number:
+                                    _inputs.Add(new InputNumberSlider(property));
+                                    break;
+                                case SimpleTypes.Object:
+                                    break;
+                                case SimpleTypes.String:
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    
                     //typeUnion.Enum
                     //switch ()
                     //{
@@ -35,6 +79,7 @@ namespace ElementsCADUI.Models
 
             if (functionDefinition.Inputs != null)
             {
+                int order = 0;
                 foreach (InputElement inputElement in functionDefinition.Inputs)
                 {
 
@@ -43,36 +88,38 @@ namespace ElementsCADUI.Models
                     switch (inputElement.InputClass.Type)
                     {
                         case InputType.Boolean:
-                            _inputs.Add(new InputBooleanToggle(inputElement));
+                            _inputs.Add(new InputBooleanToggle(inputElement, order));
                             break;
                         case InputType.Choice:
-                            _inputs.Add(new InputDisplayable(inputElement));
+                            _inputs.Add(new InputDisplayable(inputElement, order));
                             break;
                         case InputType.Data:
-                            _inputs.Add(new InputDisplayable(inputElement));
+                            _inputs.Add(new InputDisplayable(inputElement, order));
                             break;
                         case InputType.Geometry:
-                            _inputs.Add(new InputDisplayable(inputElement));
+                            _inputs.Add(new InputDisplayable(inputElement, order));
                             break;
                         case InputType.List:
-                            _inputs.Add(new InputDisplayable(inputElement));
+                            _inputs.Add(new InputDisplayable(inputElement, order));
                             break;
                         case InputType.Location:
-                            _inputs.Add(new InputDisplayable(inputElement));
+                            _inputs.Add(new InputDisplayable(inputElement, order));
                             break;
                         case InputType.Number:
-                            _inputs.Add(new InputNumberField(inputElement));
+                            _inputs.Add(new InputNumberField(inputElement, order));
                             break;
                         case InputType.Range:
-                            _inputs.Add(new InputNumberSlider(inputElement));
+                            _inputs.Add(new InputNumberSlider(inputElement, order));
                             break;
                         case InputType.String:
-                            _inputs.Add(new InputStringField(inputElement));
+                            _inputs.Add(new InputStringField(inputElement, order));
                             break;
                         default:
-                            _inputs.Add(new InputDisplayable(inputElement));
+                            _inputs.Add(new InputDisplayable(inputElement, order));
                             break;
                     }
+
+                    order++;
                 }
             }
 

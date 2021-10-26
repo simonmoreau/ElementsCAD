@@ -215,7 +215,7 @@ namespace ElementsCADUI.Models
         /// explicitly, it will be added when you publish.
         /// </summary>
         [JsonProperty("$hyparOrder", NullValueHandling = NullValueHandling.Ignore)]
-        public double? HyparOrder { get; set; }
+        public int? HyparOrder { get; set; }
 
         /// <summary>
         /// Make the display of this property conditional on the value of another property.
@@ -278,7 +278,7 @@ namespace ElementsCADUI.Models
         public HyparFunctionInputSchemaMetaSchemaElement Else { get; set; }
 
         [JsonProperty("enum", NullValueHandling = NullValueHandling.Ignore)]
-        public double[] Enum { get; set; }
+        public object[] Enum { get; set; }
 
         [JsonProperty("examples", NullValueHandling = NullValueHandling.Ignore)]
         public bool[] Examples { get; set; }
@@ -493,7 +493,7 @@ namespace ElementsCADUI.Models
         public HyparFunctionInputSchemaMetaSchemaElement Else { get; set; }
 
         [JsonProperty("enum", NullValueHandling = NullValueHandling.Ignore)]
-        public double[] Enum { get; set; }
+        public object[] Enum { get; set; }
 
         [JsonProperty("examples", NullValueHandling = NullValueHandling.Ignore)]
         public bool[] Examples { get; set; }
