@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ElementsCADUI.Models;
 
 namespace ElementsCADUI.InputControls
 {
     /// <summary>
-    /// Interaction logic for IntegerField.xaml
+    /// Interaction logic for StringField.xaml
     /// </summary>
-    public partial class IntegerField : UserControl
+    public partial class StringField : UserControl
     {
-        public IntegerField()
+        public StringField()
         {
             InitializeComponent();
             SetBinding();
@@ -32,17 +31,13 @@ namespace ElementsCADUI.InputControls
             Binding myBinding = new Binding();
             myBinding.Source = this;
             myBinding.Path = new PropertyPath("Value");
-            NumberRangeRule numberRangeRule = new NumberRangeRule();
-            numberRangeRule.Min = Input?.Minimum ?? default(int);
-            numberRangeRule.Max = Input?.Maximum ?? default(int);
-            myBinding.ValidationRules.Add(numberRangeRule);
             myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             BindingOperations.SetBinding(textBox, TextBox.TextProperty, myBinding);
         }
 
         public static readonly DependencyProperty ValueProperty =
-DependencyProperty.Register("Value", typeof(int), typeof(IntegerField), new
-PropertyMetadata(0, new PropertyChangedCallback(OnValueChanged)));
+DependencyProperty.Register("Value", typeof(string), typeof(StringField), new
+PropertyMetadata("", new PropertyChangedCallback(OnValueChanged)));
 
         public int Value
         {
@@ -52,7 +47,7 @@ PropertyMetadata(0, new PropertyChangedCallback(OnValueChanged)));
         private static void OnValueChanged(DependencyObject d,
            DependencyPropertyChangedEventArgs e)
         {
-            IntegerField UserControl1Control = d as IntegerField;
+            StringField UserControl1Control = d as StringField;
             UserControl1Control.OnValueChanged(e);
         }
 
@@ -62,27 +57,27 @@ PropertyMetadata(0, new PropertyChangedCallback(OnValueChanged)));
         }
 
         public static readonly DependencyProperty InputProperty =
-DependencyProperty.Register("Input", typeof(InputIntegerField), typeof(IntegerField), new
+DependencyProperty.Register("Input", typeof(StringField), typeof(StringField), new
 PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
 
-        public InputIntegerField Input
+        public StringField Input
         {
-            get { return (InputIntegerField)GetValue(InputProperty); }
+            get { return (StringField)GetValue(InputProperty); }
             set { SetValue(InputProperty, value); }
         }
 
         private static void OnInputChanged(DependencyObject d,
            DependencyPropertyChangedEventArgs e)
         {
-            IntegerField UserControl1Control = d as IntegerField;
+            StringField UserControl1Control = d as StringField;
             UserControl1Control.OnInputChanged(e);
         }
 
         private void OnInputChanged(DependencyPropertyChangedEventArgs e)
         {
-            InputIntegerField inputIntegerField = e.NewValue as InputIntegerField;
+            StringField StringField = e.NewValue as StringField;
 
-            if (inputIntegerField != null)
+            if (StringField != null)
             {
                 SetBinding();
             }

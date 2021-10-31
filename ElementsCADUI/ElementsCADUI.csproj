@@ -84,6 +84,9 @@
     <Compile Include="InputControls\NumberSlider.xaml.cs">
       <DependentUpon>NumberSlider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputControls\StringField.xaml.cs">
+      <DependentUpon>StringField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindows\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InputControls\NumberSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputControls\StringField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

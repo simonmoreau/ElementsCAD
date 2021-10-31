@@ -15,14 +15,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TextBox Name="textBox1" Validation.ErrorTemplate="{StaticResource validationTemplate}" Style="{StaticResource textBoxInError}">
-            <TextBox.Text>
-                <Binding Path="Value"  >
-                    <Binding.ValidationRules>
-                        <local:IntegerRangeRule Min="21" Max="130"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
+        <TextBox Name="textBox" Validation.ErrorTemplate="{StaticResource validationTemplate}" Style="{StaticResource textBoxInError}"
+                 Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Value}"/>
     </Grid>
 </UserControl>

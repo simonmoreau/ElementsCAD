@@ -52,6 +52,7 @@ namespace ElementsCADUI.Models
                                         _inputs.Add(new InputBooleanToggle(property));
                                     break;
                                 case SimpleTypes.Integer:
+                                    _inputs.Add(new InputIntegerField(property));
                                     break;
                                 case SimpleTypes.Null:
                                     break;
@@ -61,10 +62,15 @@ namespace ElementsCADUI.Models
                                 case SimpleTypes.Object:
                                     break;
                                 case SimpleTypes.String:
+                                    _inputs.Add(new InputStringField(property));
                                     break;
                                 default:
                                     break;
                             }
+                        }
+                        else
+                        {
+                            _inputs.Add(new InputDisplayable(property));
                         }
                     }
                     

@@ -155,7 +155,22 @@ namespace ElementsCADUI.Models
     {
         public InputIntegerField(InputElement inputElement, int order) : base(inputElement, order)
         {
+            _step = 1;
             _value = 0;
+        }
+
+        public InputIntegerField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            _step = 1;
+            int? defaultValue = property.Value.Default as int?;
+            _value = defaultValue ?? default(int);
+        }
+
+        private string _hyparUnitType;
+        public string HyparUnitType
+        {
+            get { return _hyparUnitType; }
+            set { SetProperty(ref _hyparUnitType, value); }
         }
 
         private int _value;
@@ -165,11 +180,25 @@ namespace ElementsCADUI.Models
             set { SetProperty(ref _value, value); }
         }
 
-        private string _hyparUnitType;
-        public string HyparUnitType
+        private int _minimum;
+        public int Minimum
         {
-            get { return _hyparUnitType; }
-            set { SetProperty(ref _hyparUnitType, value); }
+            get { return _minimum; }
+            set { SetProperty(ref _minimum, value); }
+        }
+
+        private int _maximum;
+        public int Maximum
+        {
+            get { return _maximum; }
+            set { SetProperty(ref _maximum, value); }
+        }
+
+        private int _step;
+        public int Step
+        {
+            get { return _step; }
+            set { SetProperty(ref _step, value); }
         }
     }
 
@@ -199,6 +228,11 @@ namespace ElementsCADUI.Models
         public InputStringField(InputElement inputElement, int order) : base(inputElement, order)
         {
             _value = "";
+        }
+
+        public InputStringField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            _value = property.Value.Default as string;
         }
 
         private string _value;
