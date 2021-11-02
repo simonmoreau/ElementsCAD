@@ -70,7 +70,19 @@ namespace ElementsCADUI.Models
                         }
                         else
                         {
-                            _inputs.Add(new InputDisplayable(property));
+                            if (value.Ref != null)
+                            {
+                                string refSchema = value.Ref.Split('/').Last();
+                                switch (refSchema)
+                                {
+                                    case "Color.json":
+                                        _inputs.Add(new InputColorField(property));
+                                        break;
+                                    default:
+                                        _inputs.Add(new InputDisplayable(property));
+                                        break;
+                                }
+                            }
                         }
                     }
                     

@@ -64,6 +64,15 @@
                                     <TextBlock Text="{Binding Value}"/>
                                 </StackPanel>
                             </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:InputColorField}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock>input InputColorField</TextBlock>
+                                    <controls:ColorField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                                    <TextBlock Text="{Binding Value}"/>
+                                </StackPanel>
+                            </DataTemplate>
                             <DataTemplate DataType="{x:Type models:InputDisplayable}">
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>

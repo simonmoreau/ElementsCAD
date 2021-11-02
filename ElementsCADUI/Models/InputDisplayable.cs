@@ -1,9 +1,11 @@
 ﻿using ElementsCADUI.Services;
 using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ElementsCADUI.Models
 {
@@ -242,6 +244,29 @@ namespace ElementsCADUI.Models
             set { SetProperty(ref _value, value); }
         }
     }
+    public class InputColorField : InputDisplayable
+    {
+        public InputColorField(InputElement inputElement, int order) : base(inputElement, order)
+        {
+            _value = new Color();
+        }
+
+        public InputColorField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            string json = property.Value.Default.ToString();
+            Color? defaultColor = JsonConvert.DeserializeObject<Color>(json);
+
+            _value = defaultColor ?? new Color();
+        }
+
+        private Color _value;
+        public Color Value
+        {
+            get { return _value; }
+            set { SetProperty(ref _value, value); }
+        }
+    }
+
 
     class InputSelectDropdown : InputDisplayable
     {

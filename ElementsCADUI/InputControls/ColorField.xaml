@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="ElementsCADUI.InputControls.ColorField"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElementsCADUI.InputControls"
+             xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="100">
+    <Grid>
+        <ToggleButton x:Name="TogglePopupButton" Height="30" Width="150" HorizontalAlignment="Left" Background="Red">
+            <StackPanel>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Run Text="Is button toggled? " />
+            <Run Text="{Binding IsChecked, ElementName=TogglePopupButton}" />
+                </TextBlock>
+
+                <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}" >
+                    <Border BorderThickness="1" Background="White" >
+                        <colorpicker:StandardColorPicker x:Name="main" colorpicker:ColorChanged="main_ColorChanged" />
+                    </Border>
+                </Popup>
+            </StackPanel>
+        </ToggleButton>
+        
+    </Grid>
+</UserControl>
