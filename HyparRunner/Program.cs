@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace HyparRunner
 {
@@ -8,19 +9,25 @@ namespace HyparRunner
     {
         static void Main(string[] args)
         {
-            string functionFolderPath = args[0];
+            string hyparJsonFile = args[0];
 
-            string hyparJsonFile = functionFolderPath + "\\hypar.json";
+            // string hyparJsonFile = functionFolderPath + "\\hypar.json";
+
+            hyparJsonFile = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\functionDefs.json";
 
             // Open the hypar.json file
-            FunctionDefinition functionFile = FunctionDefinition.FromJson(File.ReadAllText(hyparJsonFile));
+            // FunctionDefinition functionFile = FunctionDefinition.FromJson(File.ReadAllText(hyparJsonFile));
 
-            Function function = new Function();
-            function.Directory = functionFolderPath;
-            function.FunctionDefinition = functionFile;
+            List<Function>  functions = JsonConvert.DeserializeObject<List<Function>>(File.ReadAllText(hyparJsonFile), HyparRunner.Converter.Settings);
+            // function.Directory = functionFolderPath;
+            // function.FunctionDefinition = functionFile;
 
             FunctionRunner functionRunner = new FunctionRunner();
-            functionRunner.RunFunction(function);
+
+            foreach (Function function in functions)
+            {
+                functionRunner.RunFunction(function);
+            }
 
         }
     }
@@ -28,7 +35,8 @@ namespace HyparRunner
     class Function
     {
         public string Directory { get; set; }
-        public FunctionDefinition FunctionDefinition { get; set; }
+        public string DllName { get; set; }
+        // public FunctionDefinition FunctionDefinition { get; set; }
         public Dictionary<string, object> InputsValues { get; set; }
     }
 

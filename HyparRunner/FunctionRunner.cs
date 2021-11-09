@@ -17,7 +17,7 @@ namespace HyparRunner
 
             Init();
 
-            string functionName = function.FunctionDefinition.Name.Replace(" ", "");
+            string functionName = function.DllName; //.FunctionDefinition.Name.Replace(" ", "");
 
             string dllPath = Path.Combine(function.Directory, functionName  + ".dll");
             string dependenciesPathNew = Path.Combine(function.Directory, functionName + ".Dependencies.dll");
@@ -40,7 +40,16 @@ namespace HyparRunner
             if (functionType != null)
             {
                 // var c = Activator.CreateInstance(functionType);
-                object inputs = Activator.CreateInstance(functionTypeInputs);
+                // string bucketName = , string uploadsBucket = , Dictionary<string, string> modelInputKeys = null, string gltfKey = string elementsKey = , string ifcKey = 
+
+                object[] s3Args = { "hypar-executions", "hypar-uploads", null, "model.glb", "model.json", "model.ifc" };
+                object[] functionArgs = function.InputsValues.Values.ToArray();
+
+                object[] args = new object[functionArgs.Length + s3Args.Length];
+                functionArgs.CopyTo(args, 0);
+                s3Args.CopyTo(args, functionArgs.Length);
+
+                object inputs = Activator.CreateInstance(functionTypeInputs, args);
 
                 S3Args inputsBase = inputs as S3Args;
 

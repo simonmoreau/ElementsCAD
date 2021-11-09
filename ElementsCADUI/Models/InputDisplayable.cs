@@ -40,6 +40,13 @@ namespace ElementsCADUI.Models
             set { SetProperty(ref _description, value); }
         }
 
+        private object _value;
+        public object Value
+        {
+            get { return _value; }
+            set { SetProperty(ref _value, value); }
+        }
+
     }
 
     public class InputNumberField : InputDisplayable
@@ -49,7 +56,7 @@ namespace ElementsCADUI.Models
             _minimum = inputElement.InputClass.Min ?? default(double);
             _maximum = inputElement.InputClass.Max ?? default(double);
             _step = inputElement.InputClass.Step ?? default(double);
-            _value = inputElement.InputClass.Min ?? default(double);
+            Value = inputElement.InputClass.Min ?? default(double);
         }
 
         public InputNumberField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
@@ -59,7 +66,7 @@ namespace ElementsCADUI.Models
             _step = property.Value.MultipleOf ?? default(double);
 
             double? defaultValue = property.Value.Default as double?;
-            _value = defaultValue ?? property.Value.Minimum ?? default(double);
+            Value = defaultValue ?? property.Value.Minimum ?? default(double);
         }
 
         private string _hyparUnitType;
@@ -67,13 +74,6 @@ namespace ElementsCADUI.Models
         {
             get { return _hyparUnitType; }
             set { SetProperty(ref _hyparUnitType, value); }
-        }
-
-        private double _value;
-        public double Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
         }
 
         private double _minimum;
@@ -105,7 +105,7 @@ namespace ElementsCADUI.Models
             _minimum = inputElement.InputClass.Min ?? default(double);
             _maximum = inputElement.InputClass.Max ?? default(double);
             _step = inputElement.InputClass.Step ?? default(double);
-            _value = inputElement.InputClass.Min ?? default(double);
+            Value = inputElement.InputClass.Min ?? default(double);
         }
 
         public InputNumberSlider(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
@@ -114,7 +114,7 @@ namespace ElementsCADUI.Models
             _maximum = property.Value.Maximum ?? default(double);
             _step = property.Value.MultipleOf ?? default(double);
             double? defaultValue = property.Value.Default as double?;
-            _value = defaultValue ?? property.Value.Minimum ?? default(double);
+            Value = defaultValue ?? property.Value.Minimum ?? default(double);
         }
 
         private string _hyparUnitType;
@@ -122,13 +122,6 @@ namespace ElementsCADUI.Models
         {
             get { return _hyparUnitType; }
             set { SetProperty(ref _hyparUnitType, value); }
-        }
-
-        private double _value;
-        public double Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
         }
 
         private double _minimum;
@@ -158,14 +151,14 @@ namespace ElementsCADUI.Models
         public InputIntegerField(InputElement inputElement, int order) : base(inputElement, order)
         {
             _step = 1;
-            _value = 0;
+            Value = 0;
         }
 
         public InputIntegerField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
         {
             _step = 1;
             int? defaultValue = property.Value.Default as int?;
-            _value = defaultValue ?? default(int);
+            Value = defaultValue ?? default(int);
         }
 
         private string _hyparUnitType;
@@ -175,12 +168,6 @@ namespace ElementsCADUI.Models
             set { SetProperty(ref _hyparUnitType, value); }
         }
 
-        private int _value;
-        public int Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
-        }
 
         private int _minimum;
         public int Minimum
@@ -208,47 +195,36 @@ namespace ElementsCADUI.Models
     {
         public InputBooleanToggle(InputElement inputElement, int order) : base(inputElement, order)
         {
-            _value = false;
+            Value = false;
         }
 
         public InputBooleanToggle(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
         {
             bool? defaultValue = property.Value.Default as bool?;
-            _value = defaultValue ?? default(bool);
+            Value = defaultValue ?? default(bool);
         }
 
-        private bool _value;
-        public bool Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
-        }
     }
 
     class InputStringField : InputDisplayable
     {
         public InputStringField(InputElement inputElement, int order) : base(inputElement, order)
         {
-            _value = "";
+            Value = "";
         }
 
         public InputStringField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
         {
-            _value = property.Value.Default as string;
+            Value = property.Value.Default as string;
         }
 
-        private string _value;
-        public string Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
-        }
+
     }
     public class InputColorField : InputDisplayable
     {
         public InputColorField(InputElement inputElement, int order) : base(inputElement, order)
         {
-            _value = new Color();
+            Value = new Color();
         }
 
         public InputColorField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
@@ -256,14 +232,7 @@ namespace ElementsCADUI.Models
             string json = property.Value.Default.ToString();
             Color? defaultColor = JsonConvert.DeserializeObject<Color>(json);
 
-            _value = defaultColor ?? new Color();
-        }
-
-        private Color _value;
-        public Color Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
+            Value = defaultColor ?? new Color();
         }
     }
 
@@ -272,15 +241,9 @@ namespace ElementsCADUI.Models
     {
         public InputSelectDropdown(InputElement inputElement, int order) : base(inputElement, order)
         {
-            _value = "";
+            Value = "";
         }
 
-        private string _value;
-        public string Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
-        }
 
         private string[] _choices;
         public string[] Choices

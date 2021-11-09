@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.IO;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace ElementsCADUI.MainWindows
 {
@@ -21,6 +22,33 @@ namespace ElementsCADUI.MainWindows
             _functions = new ObservableCollection<FunctionDisplayable>();
             AddFunctionCommand = new RelayCommand(OnAddFunctionCommand);
             RemoveFunctionCommand = new RelayCommand<FunctionDisplayable>(OnRemoveFunctionCommand);
+            RunFunctionsCommand = new RelayCommand(OnRunFunctionsCommand);
+        }
+
+        public RelayCommand RunFunctionsCommand { get; private set; }
+
+        private void OnRunFunctionsCommand()
+        {
+            List<Function> functions = new List<Function>();
+            foreach (FunctionDisplayable functionDisplayable in Functions)
+            {
+                Function function = new Function();
+                function.Directory = functionDisplayable.Directory;
+                function.DllName = functionDisplayable.FunctionDefinition.Name.Replace(" ", "");
+                function.InputsValues = new Dictionary<string, object>();
+
+                foreach (InputDisplayable inputDisplayable in functionDisplayable.Inputs)
+                {
+                    function.InputsValues.Add(inputDisplayable.Name, inputDisplayable.Value);
+                }
+
+                functions.Add(function);
+            }
+
+            string json = JsonConvert.SerializeObject(functions);
+
+            string path = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\functionDefs.json";
+            File.WriteAllText(path, json);
         }
 
         public RelayCommand AddFunctionCommand { get; private set; }
@@ -52,5 +80,13 @@ namespace ElementsCADUI.MainWindows
             get { return _functions; }
             set { SetProperty(ref _functions, value); }
         }
+    }
+
+    class Function
+    {
+        public string Directory { get; set; }
+        public string DllName { get; set; }
+        // public FunctionDefinition FunctionDefinition { get; set; }
+        public Dictionary<string, object> InputsValues { get; set; }
     }
 }

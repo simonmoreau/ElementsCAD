@@ -95,14 +95,26 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <TextBox>MainWindow</TextBox>
-            <ListBox ItemsSource="{Binding Functions}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0">MainWindow</TextBox>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel  Orientation="Vertical">
+                <ListView ItemsSource="{Binding Functions}"
                  ItemTemplate="{StaticResource FunctionTemplate}"
-                 HorizontalContentAlignment="Stretch"
-                 ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            </ListBox>
-            <Button HorizontalAlignment="Center" Command="{Binding AddFunctionCommand}">Add function</Button>
-        </StackPanel>
+                 HorizontalContentAlignment="Stretch" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.Template>
+                        <ControlTemplate>
+                            <ItemsPresenter></ItemsPresenter>
+                        </ControlTemplate>
+                    </ListView.Template>
+                </ListView>
+                <Button HorizontalAlignment="Center" Command="{Binding AddFunctionCommand}">Add function</Button>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Grid.Row="2" HorizontalAlignment="Center" Command="{Binding RunFunctionsCommand}">Run functions</Button>
     </Grid>
 </UserControl>
