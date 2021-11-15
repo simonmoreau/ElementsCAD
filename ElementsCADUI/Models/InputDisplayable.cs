@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Elements.Geometry;
 
 namespace ElementsCADUI.Models
 {
@@ -224,15 +225,15 @@ namespace ElementsCADUI.Models
     {
         public InputColorField(InputElement inputElement, int order) : base(inputElement, order)
         {
-            Value = new Color();
+            Value = new Elements.Geometry.Color();
         }
 
         public InputColorField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
         {
             string json = property.Value.Default.ToString();
-            Color? defaultColor = JsonConvert.DeserializeObject<Color>(json);
+            Elements.Geometry.Color? defaultColor = JsonConvert.DeserializeObject<Elements.Geometry.Color>(json);
 
-            Value = defaultColor ?? new Color();
+            Value = defaultColor ?? new Elements.Geometry.Color();
         }
     }
 

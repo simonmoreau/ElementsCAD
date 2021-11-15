@@ -80,6 +80,8 @@ namespace HyparRunner
                     propertyInfo.SetValue(inputs, keyValuePair.Value, null);
                 }
 
+                
+
                 Dictionary<string, Model> inputModels = new Dictionary<string, Model>();
 
                 object outputs = functionType.InvokeMember(
