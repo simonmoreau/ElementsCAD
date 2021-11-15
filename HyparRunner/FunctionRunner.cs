@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Elements;
+using Elements.Serialization.glTF;
 using Hypar.Functions.Execution;
 using Hypar.Functions.Execution.AWS;
 using System.IO;
@@ -19,16 +20,18 @@ namespace HyparRunner
 
             string functionName = function.DllName; //.FunctionDefinition.Name.Replace(" ", "");
 
-            string dllPath = Path.Combine(function.Directory, functionName  + ".dll");
+            string dllPath = Path.Combine(function.Directory, functionName + ".dll");
             string dependenciesPathNew = Path.Combine(function.Directory, functionName + ".Dependencies.dll");
 
             // Load function dll
             Assembly DLL = Assembly.LoadFile(dllPath);
             // Load dependencies
             string dependenciesPath = Path.GetDirectoryName(dllPath) + "\\" + Path.GetFileNameWithoutExtension(dllPath) + ".Dependencies.dll";
+
+            Assembly dependenciesDLL = null;
             if (File.Exists(dependenciesPath))
             {
-                Assembly.LoadFile(dependenciesPath);
+                dependenciesDLL = Assembly.LoadFile(dependenciesPath);
             }
 
             Type[] assemblyTypes = DLL.GetExportedTypes();
@@ -37,12 +40,30 @@ namespace HyparRunner
             Type functionTypeOutputs = assemblyTypes.Where(t => t.Name == functionName + "Outputs").FirstOrDefault();
             Type functionTypeInputs = assemblyTypes.Where(t => t.Name == functionName + "Inputs").FirstOrDefault();
 
+
+            if (dependenciesDLL != null)
+            {
+                Type[] dependenciesTypes = dependenciesDLL.GetExportedTypes();
+
+                if (functionTypeOutputs == null)
+                {
+                    functionTypeOutputs = dependenciesTypes.Where(t => t.Name == functionName + "Outputs").FirstOrDefault();
+                }
+
+                if (functionTypeInputs == null)
+                {
+                    functionTypeInputs = dependenciesTypes.Where(t => t.Name == functionName + "Inputs").FirstOrDefault();
+                }
+            }
+
+
             if (functionType != null)
             {
                 // var c = Activator.CreateInstance(functionType);
                 // string bucketName = , string uploadsBucket = , Dictionary<string, string> modelInputKeys = null, string gltfKey = string elementsKey = , string ifcKey = 
 
-                object[] s3Args = { "hypar-executions", "hypar-uploads", null, "model.glb", "model.json", "model.ifc" };
+                Dictionary<string, string> modelInputKeys = new Dictionary<string, string>();
+                object[] s3Args = { "hypar-executions", "hypar-uploads", modelInputKeys, "model.glb", "model.json", "model.ifc" };
                 object[] functionArgs = function.InputsValues.Values.ToArray();
 
                 object[] args = new object[functionArgs.Length + s3Args.Length];
@@ -53,7 +74,7 @@ namespace HyparRunner
 
                 S3Args inputsBase = inputs as S3Args;
 
-                foreach (KeyValuePair<string,object> keyValuePair in function.InputsValues)
+                foreach (KeyValuePair<string, object> keyValuePair in function.InputsValues)
                 {
                     PropertyInfo propertyInfo = inputs.GetType().GetProperty(keyValuePair.Key);
                     propertyInfo.SetValue(inputs, keyValuePair.Value, null);
@@ -67,6 +88,9 @@ namespace HyparRunner
 
                 ResultsBase outputsBase = outputs as ResultsBase;
 
+
+                string OUTPUT = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\Output/";
+                outputsBase.Model.ToGlTF(OUTPUT + "Output.glb");
             }
 
         }

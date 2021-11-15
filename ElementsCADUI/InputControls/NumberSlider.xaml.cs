@@ -72,7 +72,15 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
             {
                 slider.Minimum = inputNumberSlider.Minimum;
                 slider.Maximum = inputNumberSlider.Maximum;
-                slider.TickFrequency = inputNumberSlider.Step;
+                if (inputNumberSlider.Step == 0)
+                {
+                    slider.TickFrequency = (inputNumberSlider.Maximum - inputNumberSlider.Minimum)/100;
+                }
+                else
+                {
+                    slider.TickFrequency = inputNumberSlider.Step;
+                }
+                
                 slider.IsSnapToTickEnabled = true;
 
             }

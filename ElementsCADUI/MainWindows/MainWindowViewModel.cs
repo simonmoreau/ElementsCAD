@@ -9,6 +9,7 @@ using Microsoft.Win32;
 using System.IO;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace ElementsCADUI.MainWindows
 {
@@ -34,7 +35,11 @@ namespace ElementsCADUI.MainWindows
             {
                 Function function = new Function();
                 function.Directory = functionDisplayable.Directory;
-                function.DllName = functionDisplayable.FunctionDefinition.Name.Replace(" ", "");
+
+                // Creates a TextInfo based on the "en-US" culture.
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+                function.DllName = textInfo.ToTitleCase(functionDisplayable.FunctionDefinition.Name).Replace(" ", "");
                 function.InputsValues = new Dictionary<string, object>();
 
                 foreach (InputDisplayable inputDisplayable in functionDisplayable.Inputs)
