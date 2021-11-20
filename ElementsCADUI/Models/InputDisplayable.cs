@@ -237,6 +237,118 @@ namespace ElementsCADUI.Models
         }
     }
 
+    public class InputCurveField : InputDisplayable
+    {
+        public InputCurveField(InputElement inputElement, int order) : base(inputElement, order)
+        {
+            Value = null;
+        }
+
+        public InputCurveField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            Value = null;
+        }
+    }
+
+    public class InputLineField : InputCurveField
+    {
+        public InputLineField(InputElement inputElement, int order) : base(inputElement, order)
+        {
+            Value = new Elements.Geometry.Line();
+        }
+
+        public InputLineField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            if (property.Value.Default != null)
+            {
+                string json = property.Value.Default.ToString();
+                Elements.Geometry.Line defaultLine = JsonConvert.DeserializeObject<Elements.Geometry.Line>(json);
+
+                Value = defaultLine ?? new Elements.Geometry.Line();
+            }
+            else
+            {
+                Value = new Elements.Geometry.Line();
+            }
+        }
+    }
+
+    public class InputPolylineField : InputCurveField
+    {
+        public InputPolylineField(InputElement inputElement, int order) : base(inputElement, order)
+        {
+            Value = new Elements.Geometry.Polyline();
+        }
+
+        public InputPolylineField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            if (property.Value.Default != null)
+            {
+                string json = property.Value.Default.ToString();
+                Elements.Geometry.Polyline defaultLine = JsonConvert.DeserializeObject<Elements.Geometry.Polyline>(json);
+
+                Value = defaultLine;
+            }
+            else
+            {
+                Value = new Elements.Geometry.Polyline();
+            }
+        }
+    }
+
+    public class InputPolygonField : InputCurveField
+    {
+        public InputPolygonField(InputElement inputElement, int order) : base(inputElement, order)
+        {
+            Value = new Elements.Geometry.Polygon();
+        }
+
+        public InputPolygonField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            if (property.Value.Default != null)
+            {
+                string json = property.Value.Default.ToString();
+                Elements.Geometry.Polygon defaultLine = JsonConvert.DeserializeObject<Elements.Geometry.Polygon>(json);
+
+                Value = defaultLine;
+            }
+            else
+            {
+                Value = new Elements.Geometry.Polygon();
+            }
+        }
+    }
+
+    public class InputPointField : InputDisplayable
+    {
+        public InputPointField(InputElement inputElement, int order) : base(inputElement, order)
+        {
+            Value = new Elements.Geometry.Vector3();
+        }
+
+        public InputPointField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            if (property.Value.Default != null)
+            {
+                string json = property.Value.Default.ToString();
+                Elements.Geometry.Vector3 defaultLine = JsonConvert.DeserializeObject<Elements.Geometry.Vector3>(json);
+
+                if (defaultLine != null)
+                {
+                    Value = defaultLine;
+                }
+                else
+                {
+                    Value = new Elements.Geometry.Vector3();
+                }
+            }
+            else
+            {
+                Value = new Elements.Geometry.Vector3();
+            }
+        }
+    }
+
 
     class InputSelectDropdown : InputDisplayable
     {

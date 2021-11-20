@@ -73,6 +73,24 @@
                                     <TextBlock Text="{Binding Value}"/>
                                 </StackPanel>
                             </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:InputPointField}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock>input InputColorField</TextBlock>
+                                    <controls:PointField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                                    <TextBlock Text="{Binding Value}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:InputLineField}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock>input InputColorField</TextBlock>
+                                    <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                                    <TextBlock Text="{Binding Value.End}"/>
+                                </StackPanel>
+                            </DataTemplate>
                             <DataTemplate DataType="{x:Type models:InputDisplayable}">
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>

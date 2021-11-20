@@ -75,6 +75,18 @@ namespace ElementsCADUI.Models
                                 string refSchema = value.Ref.Split('/').Last();
                                 switch (refSchema)
                                 {
+                                    case "Vector3.json":
+                                        _inputs.Add(new InputPointField(property));
+                                        break;
+                                    case "Line.json":
+                                        _inputs.Add(new InputLineField(property));
+                                        break;
+                                    case "Polyline.json":
+                                        _inputs.Add(new InputLineField(property));
+                                        break;
+                                    case "Polygon.json":
+                                        _inputs.Add(new InputLineField(property));
+                                        break;
                                     case "Color.json":
                                         _inputs.Add(new InputColorField(property));
                                         break;

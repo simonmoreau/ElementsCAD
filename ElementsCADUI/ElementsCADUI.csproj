@@ -149,6 +149,12 @@
     <Compile Include="InputControls\NumberSlider.xaml.cs">
       <DependentUpon>NumberSlider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputControls\CurveField.xaml.cs">
+      <DependentUpon>CurveField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InputControls\PointField.xaml.cs">
+      <DependentUpon>PointField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InputControls\StringField.xaml.cs">
       <DependentUpon>StringField.xaml</DependentUpon>
     </Compile>
@@ -205,6 +211,14 @@
     <Page Include="InputControls\NumberSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputControls\CurveField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InputControls\PointField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="InputControls\StringField.xaml">
       <SubType>Designer</SubType>
