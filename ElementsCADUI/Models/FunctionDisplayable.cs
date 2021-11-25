@@ -24,6 +24,7 @@ namespace ElementsCADUI.Models
                 {
                     HyparFunctionInputSchemaMetaSchemaValue value = property.Value;
 
+                    
                     if (value.HyparStyle == HyparStyle.Number)
                     {
                         _inputs.Add(new InputNumberField(property));
@@ -127,7 +128,17 @@ namespace ElementsCADUI.Models
                             _inputs.Add(new InputDisplayable(inputElement, order));
                             break;
                         case InputType.Geometry:
-                            _inputs.Add(new InputDisplayable(inputElement, order));
+                            switch (inputElement.InputClass.PrimitiveType)
+                            {
+                                case PrimitiveType.Polygon:
+                                    _inputs.Add(new InputPolygonField(inputElement, order));
+                                    break;
+                                case PrimitiveType.Polyline:
+                                    _inputs.Add(new InputPolylineField(inputElement, order));
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case InputType.List:
                             _inputs.Add(new InputDisplayable(inputElement, order));

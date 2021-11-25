@@ -300,7 +300,7 @@ namespace ElementsCADUI.Models
     {
         public InputPolygonField(InputElement inputElement, int order) : base(inputElement, order)
         {
-            Value = new Elements.Geometry.Polygon();
+            Value = null;
         }
 
         public InputPolygonField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
@@ -314,7 +314,7 @@ namespace ElementsCADUI.Models
             }
             else
             {
-                Value = new Elements.Geometry.Polygon();
+                Value = null;// new Elements.Geometry.Polygon();
             }
         }
     }
