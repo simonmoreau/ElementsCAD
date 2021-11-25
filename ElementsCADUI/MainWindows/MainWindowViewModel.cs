@@ -10,6 +10,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace ElementsCADUI.MainWindows
 {
@@ -50,10 +51,30 @@ namespace ElementsCADUI.MainWindows
                 functions.Add(function);
             }
 
+
             string json = JsonConvert.SerializeObject(functions);
 
             string path = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\functionDefs.json";
             File.WriteAllText(path, json);
+
+            // Get runner path and run it
+            string runnerPath = Path.Combine(Services.AssemblyServices.AssemblyDirectory, "HyparRunner","HyparRunner.exe");
+            // System.Diagnostics.Process.Start(runnerPath,json);
+
+            // Start the child process.
+            Process p = new Process();
+            // Redirect the output stream of the child process.
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.FileName = runnerPath;
+            p.StartInfo.Arguments = json.Replace("\"","\"\"\"");
+            p.Start();
+            // Do not wait for the child process to exit before
+            // reading to the end of its redirected stream.
+            // p.WaitForExit();
+            // Read the output stream first and then wait.
+            string output = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
         }
 
         public RelayCommand AddFunctionCommand { get; private set; }

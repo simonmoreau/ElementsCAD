@@ -2,7 +2,7 @@
   "profiles": {
     "HyparRunner": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\Simon\\source\\repos\\BuildingBlocks\\Envelope\\EnvelopeByCenterline\\src\\bin\\Release\\netcoreapp3.1"
+      "commandLineArgs": "\"[{\\\"Directory\\\":\\\"C:\\\\\\\\Users\\\\\\\\Simon\\\\\\\\Github\\\\\\\\Hypar\\\\\\\\MyCubeFromDimensions\\\\\\\\src\\\\\\\\bin\\\\\\\\Debug\\\\\\\\netcoreapp3.1\\\",\\\"DllName\\\":\\\"MyCubeFromDimensions\\\",\\\"InputsValues\\\":{\\\"Width\\\":41.0,\\\"Lenght\\\":17.0,\\\"Height\\\":52.0}}]\""
     }
   }
 }

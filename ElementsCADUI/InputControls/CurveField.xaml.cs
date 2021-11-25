@@ -95,19 +95,27 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
             }
             else if (curveType == typeof(InputPolylineField))
             {
-                Elements.Geometry.Polyline polyline = new Elements.Geometry.Polyline();
-                polyline.Vertices.Add(new Elements.Geometry.Vector3(0, 0, 0));
-                polyline.Vertices.Add(new Elements.Geometry.Vector3(pointPosition.X, pointPosition.Y, 0));
+                Elements.Geometry.Vector3[] vertices =
+                {
+                    new Elements.Geometry.Vector3(0, 0, 0),
+                    new Elements.Geometry.Vector3(pointPosition.X, pointPosition.Y, 0)
+            };
+                Elements.Geometry.Polyline polyline = new Elements.Geometry.Polyline(vertices);
+
                 Value = polyline;
 
 
                 button.IsChecked = false;
             }
-            else if(curveType == typeof(InputPolygonField))
+            else if (curveType == typeof(InputPolygonField))
             {
-                Elements.Geometry.Polygon polygon = new Elements.Geometry.Polygon();
-                polygon.Vertices.Add(new Elements.Geometry.Vector3(0, 0, 0));
-                polygon.Vertices.Add(new Elements.Geometry.Vector3(pointPosition.X, pointPosition.Y, 0));
+                Elements.Geometry.Vector3[] vertices =
+{
+                    new Elements.Geometry.Vector3(0, 0, 0),
+                    new Elements.Geometry.Vector3(pointPosition.X, pointPosition.Y, 0)
+            };
+
+                Elements.Geometry.Polygon polygon = new Elements.Geometry.Polygon(vertices);
                 Value = polygon;
 
                 button.IsChecked = false;

@@ -10,5 +10,9 @@
     <PackageReference Include="Hypar.Functions" Version="0.9.6" />
     <PackageReference Include="GeometryEx" Version="8.2.0" />
   </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="powershell -ExecutionPolicy Unrestricted $(ProjectDir)PostBuild.ps1 -Configuration $(Configuration) -TargetName $(TargetName) -ProjectDir $(ProjectDir) -TargetPath $(TargetPath) -TargetDir $(TargetDir)" />
+  </Target>
 
 </Project>

@@ -77,7 +77,7 @@
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>
                                     <TextBlock Text="{Binding Description}"/>
-                                    <TextBlock>input InputColorField</TextBlock>
+                                    <TextBlock>input InputPointField</TextBlock>
                                     <controls:PointField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
                                     <TextBlock Text="{Binding Value}"/>
                                 </StackPanel>
@@ -86,7 +86,16 @@
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>
                                     <TextBlock Text="{Binding Description}"/>
-                                    <TextBlock>input InputColorField</TextBlock>
+                                    <TextBlock>input InputLineField</TextBlock>
+                                    <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                                    <TextBlock Text="{Binding Value.End}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:InputPolylineField}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock>input InputPolylineField</TextBlock>
                                     <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
                                     <TextBlock Text="{Binding Value.End}"/>
                                 </StackPanel>

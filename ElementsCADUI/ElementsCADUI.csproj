@@ -173,6 +173,7 @@
     <Compile Include="Models\FunctionDefinition.cs" />
     <Compile Include="Models\FunctionDisplayable.cs" />
     <Compile Include="Models\InputDisplayable.cs" />
+    <Compile Include="Services\AssemblyServices.cs" />
     <Compile Include="Services\BindableBase.cs" />
     <Compile Include="Services\ConsoleAppWrapper.cs" />
     <Compile Include="Services\RelayCommand.cs" />

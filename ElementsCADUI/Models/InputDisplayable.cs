@@ -277,7 +277,7 @@ namespace ElementsCADUI.Models
     {
         public InputPolylineField(InputElement inputElement, int order) : base(inputElement, order)
         {
-            Value = new Elements.Geometry.Polyline();
+            Value = null; // new Elements.Geometry.Polyline();
         }
 
         public InputPolylineField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
@@ -291,7 +291,7 @@ namespace ElementsCADUI.Models
             }
             else
             {
-                Value = new Elements.Geometry.Polyline();
+                Value = null; // new Elements.Geometry.Polyline();
             }
         }
     }

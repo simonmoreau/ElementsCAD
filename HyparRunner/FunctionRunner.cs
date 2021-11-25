@@ -94,7 +94,6 @@ namespace HyparRunner
                 string OUTPUT = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\Output/";
                 outputsBase.Model.ToGlTF(OUTPUT + "Output.glb");
             }
-
         }
 
 
