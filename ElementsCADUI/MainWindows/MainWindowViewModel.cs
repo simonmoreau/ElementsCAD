@@ -31,6 +31,7 @@ namespace ElementsCADUI.MainWindows
 
         private void OnRunFunctionsCommand()
         {
+
             List<Function> functions = new List<Function>();
             foreach (FunctionDisplayable functionDisplayable in Functions)
             {
@@ -45,36 +46,19 @@ namespace ElementsCADUI.MainWindows
 
                 foreach (InputDisplayable inputDisplayable in functionDisplayable.Inputs)
                 {
-                    function.InputsValues.Add(inputDisplayable.Name, inputDisplayable.Value);
+                    function.InputsValues.Add(inputDisplayable.Name.Replace(" ",""), inputDisplayable.Value);
                 }
 
                 functions.Add(function);
             }
 
+            FunctionRunner functionRunner = new FunctionRunner();
 
-            string json = JsonConvert.SerializeObject(functions);
+            foreach (Function function in functions)
+            {
+                functionRunner.RunFunction(function);
+            }
 
-            string path = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\functionDefs.json";
-            File.WriteAllText(path, json);
-
-            // Get runner path and run it
-            string runnerPath = Path.Combine(Services.AssemblyServices.AssemblyDirectory, "HyparRunner","HyparRunner.exe");
-            // System.Diagnostics.Process.Start(runnerPath,json);
-
-            // Start the child process.
-            Process p = new Process();
-            // Redirect the output stream of the child process.
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = runnerPath;
-            p.StartInfo.Arguments = json.Replace("\"","\"\"\"");
-            p.Start();
-            // Do not wait for the child process to exit before
-            // reading to the end of its redirected stream.
-            // p.WaitForExit();
-            // Read the output stream first and then wait.
-            string output = p.StandardOutput.ReadToEnd();
-            p.WaitForExit();
         }
 
         public RelayCommand AddFunctionCommand { get; private set; }
@@ -106,13 +90,5 @@ namespace ElementsCADUI.MainWindows
             get { return _functions; }
             set { SetProperty(ref _functions, value); }
         }
-    }
-
-    class Function
-    {
-        public string Directory { get; set; }
-        public string DllName { get; set; }
-        // public FunctionDefinition FunctionDefinition { get; set; }
-        public Dictionary<string, object> InputsValues { get; set; }
     }
 }

@@ -7,8 +7,9 @@ using Elements.Serialization.glTF;
 using Hypar.Functions.Execution;
 using Hypar.Functions.Execution.AWS;
 using System.IO;
+using ElementsCADUI.Models;
 
-namespace HyparRunner
+namespace ElementsCADUI.Services
 {
     class FunctionRunner
     {
@@ -79,8 +80,6 @@ namespace HyparRunner
                     PropertyInfo propertyInfo = inputs.GetType().GetProperty(keyValuePair.Key);
                     propertyInfo.SetValue(inputs, keyValuePair.Value, null);
                 }
-
-                
 
                 Dictionary<string, Model> inputModels = new Dictionary<string, Model>();
 

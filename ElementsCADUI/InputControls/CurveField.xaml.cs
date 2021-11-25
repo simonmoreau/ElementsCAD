@@ -120,32 +120,11 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
 
                 button.IsChecked = false;
             }
-
-
-            //if (this.penSelection.SelectedBrush != null)
-            //{
-
-            //    _line = new Polyline();
-            //    _line.Stroke = this.penSelection.SelectedBrush;
-            //    _line.StrokeThickness = 2.0;
-
-            //    drawingCanvas.Children.Add(_line);
-            //}
         }
 
         private void myCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (this.penSelection.SelectedBrush != null && _line != null)
-            //{
-            //    if (e.LeftButton == MouseButtonState.Pressed)
-            //    {
-            //        Point currentPoint = e.GetPosition(drawingCanvas);
-            //        if (_startPoint != currentPoint)
-            //        {
-            //            _line.Points.Add(currentPoint);
-            //        }
-            //    }
-            //}
+
         }
     }
 }

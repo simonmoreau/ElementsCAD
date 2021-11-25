@@ -1,0 +1,44 @@
+using Elements;
+using System.Collections.Generic;
+
+namespace {{namespace}}
+{
+	/// <summary>
+	/// Override metadata for {{class_name}}
+	/// </summary>
+	public partial class {{class_name}} : IOverride
+	{
+        public static string Name = "{{name}}";
+        public static string Dependency = {{dependency}};
+        public static string Context = "{{context}}";
+		public static string Paradigm = "{{paradigm}}";
+
+        /// <summary>
+        /// Get the override name for this override.
+        /// </summary>
+        public string GetName() {
+			return Name;
+		}
+
+		public object GetIdentity() {
+{% if paradigm == "Group" -%}
+			return Identities;
+{% else %}
+			return Identity;
+{% endif -%}
+		}
+
+{% if context_return_type != "null" -%}
+{% if dependency != "null" -%}
+		/// <summary>
+		/// Get context elements that are applicable to this override.
+		/// </summary>
+		/// <param name="models">Dictionary of input models, or any other kind of dictionary of models.</param>
+		/// <returns>List of context elements that match what is defined on the override.</returns>
+		public static IEnumerable<ElementProxy<{{context_return_type}}>> ContextProxies(Dictionary<string, Model> models) {
+			return models.AllElementsOfType<{{context_return_type}}>(Dependency).Proxies(Dependency);
+		}
+{% endif -%}
+{% endif -%}
+	}
+}

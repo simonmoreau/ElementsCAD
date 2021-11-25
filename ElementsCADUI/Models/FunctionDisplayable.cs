@@ -83,10 +83,10 @@ namespace ElementsCADUI.Models
                                         _inputs.Add(new InputLineField(property));
                                         break;
                                     case "Polyline.json":
-                                        _inputs.Add(new InputLineField(property));
+                                        _inputs.Add(new InputPolylineField(property));
                                         break;
                                     case "Polygon.json":
-                                        _inputs.Add(new InputLineField(property));
+                                        _inputs.Add(new InputPolygonField(property));
                                         break;
                                     case "Color.json":
                                         _inputs.Add(new InputColorField(property));

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElementsCADUI", "ElementsCA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElementsCADWindow", "ElementsCADWindow\ElementsCADWindow.csproj", "{B2A15772-7BF8-4E64-87B7-229A5E5BDF75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyparRunner", "HyparRunner\HyparRunner.csproj", "{E75BD778-FD58-47F3-8261-17E8EEC5728F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{B2A15772-7BF8-4E64-87B7-229A5E5BDF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2A15772-7BF8-4E64-87B7-229A5E5BDF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2A15772-7BF8-4E64-87B7-229A5E5BDF75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E75BD778-FD58-47F3-8261-17E8EEC5728F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E75BD778-FD58-47F3-8261-17E8EEC5728F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E75BD778-FD58-47F3-8261-17E8EEC5728F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E75BD778-FD58-47F3-8261-17E8EEC5728F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
