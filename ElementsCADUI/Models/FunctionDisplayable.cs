@@ -33,15 +33,15 @@ namespace ElementsCADUI.Models
                     }
                     else if (value.HyparStyle == HyparStyle.Standard)
                     {
-
+                        _inputs.Add(new InputDisplayable(property));
                     }
                     else if (value.HyparStyle == HyparStyle.Matrix)
                     {
-
+                        _inputs.Add(new InputDisplayable(property));
                     }
                     else if (value.HyparStyle == HyparStyle.Row)
                     {
-
+                        _inputs.Add(new InputDisplayable(property));
                     }
                     else
                     {
@@ -50,6 +50,7 @@ namespace ElementsCADUI.Models
                             switch (value.Type.Value.Enum)
                             {
                                 case SimpleTypes.Array:
+                                    _inputs.Add(new InputDisplayable(property));
                                     break;
                                 case SimpleTypes.Boolean:
                                         _inputs.Add(new InputBooleanToggle(property));
@@ -58,11 +59,13 @@ namespace ElementsCADUI.Models
                                     _inputs.Add(new InputIntegerField(property));
                                     break;
                                 case SimpleTypes.Null:
+                                    _inputs.Add(new InputDisplayable(property));
                                     break;
                                 case SimpleTypes.Number:
                                     _inputs.Add(new InputNumberSlider(property));
                                     break;
                                 case SimpleTypes.Object:
+                                    _inputs.Add(new InputDisplayable(property));
                                     break;
                                 case SimpleTypes.String:
                                     if (value.Enum != null)
@@ -73,9 +76,9 @@ namespace ElementsCADUI.Models
                                     {
                                         _inputs.Add(new InputStringField(property));
                                     }
-                                    
                                     break;
                                 default:
+                                    _inputs.Add(new InputDisplayable(property));
                                     break;
                             }
                         }
