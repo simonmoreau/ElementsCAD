@@ -20,7 +20,9 @@ namespace ElementsCADUI.Models
 
             if (functionDefinition.InputSchema != null)
             {
-                foreach (KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property in functionDefinition.InputSchema.Properties)
+                Dictionary<string, HyparFunctionInputSchemaMetaSchemaValue> properties = functionDefinition.InputSchema.Properties.OrderBy(i => i.Value.HyparOrder).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+                foreach (KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property in properties)
                 {
                     HyparFunctionInputSchemaMetaSchemaValue value = property.Value;
 
@@ -119,6 +121,7 @@ namespace ElementsCADUI.Models
             if (functionDefinition.Inputs != null)
             {
                 int order = 0;
+                
                 foreach (InputElement inputElement in functionDefinition.Inputs)
                 {
 
@@ -171,6 +174,8 @@ namespace ElementsCADUI.Models
                     order++;
                 }
             }
+
+
 
         }
 
