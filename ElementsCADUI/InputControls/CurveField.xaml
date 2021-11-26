@@ -19,7 +19,7 @@
             <Popup IsOpen="{Binding IsChecked, ElementName=button}" StaysOpen="True">
                 <Border Background="LightYellow" Width="200" Height="200">
                     <Canvas Grid.ZIndex="2" x:Name="drawingCanvas" Background="Transparent" MouseLeftButtonDown="myCanvas_MouseLeftButtonDown" MouseMove="myCanvas_MouseMove">
-                        <Canvas.Style>
+                        <!--<Canvas.Style>
                             <Style TargetType="Canvas">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=penSelection, Path=IsChecked}" Value="True">
@@ -27,7 +27,12 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </Canvas.Style>
+                        </Canvas.Style>-->
+                        <Grid Name="cross">
+                            <Path Stroke="Black" Data="M 0,12 24,12"/>
+                            <Path Stroke="Black" Data="M 12,0 12,24"/>
+                            <Rectangle Stroke="Black" Width="8" Height="8" Canvas.Left="8" Canvas.Top="8" />
+                        </Grid>
                     </Canvas>
                 </Border>
             </Popup>

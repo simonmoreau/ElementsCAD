@@ -125,6 +125,16 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
         private void myCanvas_MouseMove(object sender, MouseEventArgs e)
         {
 
+            // Get the x and y coordinates of the mouse pointer.
+            System.Windows.Point position = e.GetPosition(this);
+            double pX = position.X;
+            double pY = position.Y;
+
+            // Move the ellipse around
+            TranslateTransform transform = new TranslateTransform();
+            transform.X = pX - 13;
+            transform.Y = pY - 27;
+            cross.RenderTransform = transform;
         }
     }
 }
