@@ -67,58 +67,65 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
 
         private void OnInputChanged(DependencyPropertyChangedEventArgs e)
         {
-            InputCurveField inputGeometryField = e.NewValue as InputCurveField;
+            InputCurveField inputCurveField = e.NewValue as InputCurveField;
 
-            if (inputGeometryField != null)
+            if (inputCurveField != null)
             {
-
-                // SetBinding();
+                Type curveType = inputCurveField.GetType();
+                if (curveType == typeof(InputLineField))
+                {
+                    applyButton.Visibility = Visibility.Collapsed;
+                }
+                else if (curveType == typeof(InputPolylineField))
+                {
+                    applyButton.Visibility = Visibility.Visible;
+                }
+                else if (curveType == typeof(InputPolygonField))
+                {
+                    applyButton.Visibility = Visibility.Visible;
+                }
             }
-            // TextLabel.Text = e.NewValue?.ToString();
+
         }
+
+        private List<Point> points = new List<Point>();
 
         private void myCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Point pointPosition = e.GetPosition(drawingCanvas);
+            points.Add(pointPosition);
 
             Type curveType = Input.GetType();
 
             if (curveType == typeof(InputLineField))
             {
-                Elements.Geometry.Line line = new Elements.Geometry.Line();
-                line.Start = new Elements.Geometry.Vector3(0, 0, 0);
-                line.End = new Elements.Geometry.Vector3(pointPosition.X, pointPosition.Y, 0);
-                Value = line;
-
-
-                button.IsChecked = false;
+                if (points.Count >= 2)
+                {
+                    Elements.Geometry.Line line = new Elements.Geometry.Line();
+                    line.Start = new Elements.Geometry.Vector3(points[0].X, points[0].Y, 0);
+                    line.End = new Elements.Geometry.Vector3(points[1].X, points[1].Y, 0);
+                    Value = line;
+                    points.Clear();
+                    button.IsChecked = false;
+                }
             }
             else if (curveType == typeof(InputPolylineField))
             {
-                Elements.Geometry.Vector3[] vertices =
-                {
-                    new Elements.Geometry.Vector3(0, 0, 0),
-                    new Elements.Geometry.Vector3(pointPosition.X, pointPosition.Y, 0)
-            };
+                Elements.Geometry.Vector3[] vertices = points.Select(p => new Elements.Geometry.Vector3(p.X, p.Y, 0)).ToArray();
+
                 Elements.Geometry.Polyline polyline = new Elements.Geometry.Polyline(vertices);
 
                 Value = polyline;
-
-
-                button.IsChecked = false;
             }
             else if (curveType == typeof(InputPolygonField))
             {
-                Elements.Geometry.Vector3[] vertices =
-{
-                    new Elements.Geometry.Vector3(0, 0, 0),
-                    new Elements.Geometry.Vector3(pointPosition.X, pointPosition.Y, 0)
-            };
+                Elements.Geometry.Vector3[] vertices = points.Select(p => new Elements.Geometry.Vector3(p.X, p.Y, 0)).ToArray();
 
-                Elements.Geometry.Polygon polygon = new Elements.Geometry.Polygon(vertices);
-                Value = polygon;
-
-                button.IsChecked = false;
+                if (vertices.Length > 1)
+                {
+                    Elements.Geometry.Polygon polygon = new Elements.Geometry.Polygon(vertices);
+                    Value = polygon;
+                }
             }
         }
 
@@ -135,6 +142,12 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
             transform.X = pX - 13;
             transform.Y = pY - 27;
             cross.RenderTransform = transform;
+        }
+
+        private void ApplyClick(object sender, RoutedEventArgs e)
+        {
+            points.Clear();
+            button.IsChecked = false;
         }
     }
 }
