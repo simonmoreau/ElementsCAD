@@ -19,9 +19,9 @@ namespace ElementsCADUI.InputControls
     /// <summary>
     /// Interaction logic for StringField.xaml
     /// </summary>
-    public partial class StringField : UserControl
+    public partial class SelectField : UserControl
     {
-        public StringField()
+        public SelectField()
         {
             InitializeComponent();
             SetBinding();
@@ -33,11 +33,11 @@ namespace ElementsCADUI.InputControls
             myBinding.Source = this;
             myBinding.Path = new PropertyPath("Value");
             myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            BindingOperations.SetBinding(textBox, TextBox.TextProperty, myBinding);
+            BindingOperations.SetBinding(selector, ComboBox.SelectedItemProperty, myBinding);
         }
 
         public static readonly DependencyProperty ValueProperty =
-DependencyProperty.Register("Value", typeof(string), typeof(StringField), new
+DependencyProperty.Register("Value", typeof(string), typeof(SelectField), new
 PropertyMetadata("", new PropertyChangedCallback(OnValueChanged)));
 
         public string Value
@@ -45,10 +45,11 @@ PropertyMetadata("", new PropertyChangedCallback(OnValueChanged)));
             get { return (string)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
+
         private static void OnValueChanged(DependencyObject d,
            DependencyPropertyChangedEventArgs e)
         {
-            StringField UserControl1Control = d as StringField;
+            SelectField UserControl1Control = d as SelectField;
             UserControl1Control.OnValueChanged(e);
         }
 
@@ -58,28 +59,35 @@ PropertyMetadata("", new PropertyChangedCallback(OnValueChanged)));
         }
 
         public static readonly DependencyProperty InputProperty =
-DependencyProperty.Register("Input", typeof(StringField), typeof(StringField), new
+DependencyProperty.Register("Input", typeof(InputSelectField), typeof(SelectField), new
 PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
 
-        public InputStringField Input
+        public InputSelectField Input
         {
-            get { return (InputStringField)GetValue(InputProperty); }
+            get { return (InputSelectField)GetValue(InputProperty); }
             set { SetValue(InputProperty, value); }
         }
 
         private static void OnInputChanged(DependencyObject d,
            DependencyPropertyChangedEventArgs e)
         {
-            StringField UserControl1Control = d as StringField;
+            SelectField UserControl1Control = d as SelectField;
             UserControl1Control.OnInputChanged(e);
         }
 
         private void OnInputChanged(DependencyPropertyChangedEventArgs e)
         {
-            InputStringField StringField = e.NewValue as InputStringField;
+            InputSelectField inputSelectField = e.NewValue as InputSelectField;
 
-            if (StringField != null)
+            if (inputSelectField != null)
             {
+                selector.ItemsSource = inputSelectField.Choices;
+
+                if (inputSelectField.Value != null)
+                {
+                    selector.SelectedItem = inputSelectField.Value;
+                }
+
                 SetBinding();
             }
             // TextLabel.Text = e.NewValue?.ToString();

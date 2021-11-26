@@ -207,7 +207,7 @@ namespace ElementsCADUI.Models
 
     }
 
-    class InputStringField : InputDisplayable
+    public class InputStringField : InputDisplayable
     {
         public InputStringField(InputElement inputElement, int order) : base(inputElement, order)
         {
@@ -218,9 +218,29 @@ namespace ElementsCADUI.Models
         {
             Value = property.Value.Default as string;
         }
-
-
     }
+
+    public class InputSelectField : InputDisplayable
+    {
+        public InputSelectField(InputElement inputElement, int order) : base(inputElement, order)
+        {
+            Value = "";
+        }
+
+        public InputSelectField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            Value = property.Value.Default as string;
+            Choices = property.Value.Enum.Select(v => v.ToString()).ToArray();
+        }
+
+        private string[] _choices;
+        public string[] Choices
+        {
+            get { return _choices; }
+            set { SetProperty(ref _choices, value); }
+        }
+    }
+
     public class InputColorField : InputDisplayable
     {
         public InputColorField(InputElement inputElement, int order) : base(inputElement, order)
@@ -346,23 +366,6 @@ namespace ElementsCADUI.Models
             {
                 Value = new Elements.Geometry.Vector3();
             }
-        }
-    }
-
-
-    class InputSelectDropdown : InputDisplayable
-    {
-        public InputSelectDropdown(InputElement inputElement, int order) : base(inputElement, order)
-        {
-            Value = "";
-        }
-
-
-        private string[] _choices;
-        public string[] Choices
-        {
-            get { return _choices; }
-            set { SetProperty(ref _choices, value); }
         }
     }
 }

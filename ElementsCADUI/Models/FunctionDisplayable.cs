@@ -63,7 +63,15 @@ namespace ElementsCADUI.Models
                                 case SimpleTypes.Object:
                                     break;
                                 case SimpleTypes.String:
-                                    _inputs.Add(new InputStringField(property));
+                                    if (value.Enum != null)
+                                    {
+                                        _inputs.Add(new InputSelectField(property));
+                                    }
+                                    else
+                                    {
+                                        _inputs.Add(new InputStringField(property));
+                                    }
+                                    
                                     break;
                                 default:
                                     break;

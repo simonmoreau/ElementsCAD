@@ -82,6 +82,15 @@
                                     <TextBlock Text="{Binding Value}"/>
                                 </StackPanel>
                             </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:InputSelectField}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock>input InputSelectField</TextBlock>
+                                    <controls:SelectField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                                    <TextBlock Text="{Binding Value}"/>
+                                </StackPanel>
+                            </DataTemplate>
                             <DataTemplate DataType="{x:Type models:InputLineField}">
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"/>
