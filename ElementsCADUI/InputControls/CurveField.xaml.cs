@@ -121,7 +121,7 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
             {
                 Elements.Geometry.Vector3[] vertices = points.Select(p => new Elements.Geometry.Vector3(p.X, p.Y, 0)).ToArray();
 
-                if (vertices.Length > 1)
+                if (vertices.Length > 2)
                 {
                     Elements.Geometry.Polygon polygon = new Elements.Geometry.Polygon(vertices);
                     Value = polygon;
@@ -129,19 +129,36 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
             }
         }
 
+        private Line line = new Line();
+
         private void myCanvas_MouseMove(object sender, MouseEventArgs e)
         {
 
             // Get the x and y coordinates of the mouse pointer.
             System.Windows.Point position = e.GetPosition(this);
-            double pX = position.X;
-            double pY = position.Y;
+            double pX = position.X - 13;
+            double pY = position.Y - 27;
 
             // Move the ellipse around
             TranslateTransform transform = new TranslateTransform();
-            transform.X = pX - 13;
-            transform.Y = pY - 27;
+            transform.X = pX;
+            transform.Y = pY;
             cross.RenderTransform = transform;
+
+            // if there is already a point
+            if (points.Count > 0)
+            {
+                drawingCanvas.Children.Remove(line);
+
+                line.Stroke = System.Windows.Media.Brushes.Black;
+                line.X1 = points.Last().X;
+                line.Y1 = points.Last().Y;
+                line.X2 = pX+6;
+                line.Y2 = pY+6;
+
+                drawingCanvas.Children.Add(line);
+
+            }
         }
 
         private void ApplyClick(object sender, RoutedEventArgs e)
