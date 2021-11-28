@@ -8,23 +8,27 @@ using Hypar.Functions.Execution;
 using Hypar.Functions.Execution.AWS;
 using System.IO;
 using ElementsCADUI.Models;
+using System.Security.Policy;
 
 namespace ElementsCADUI.Services
 {
+
     class FunctionRunner
     {
 
-        public void RunFunction(Function function)
+        public ResultsBase RunFunction(Function function, Dictionary<string, Model> inputModels)
         {
+            return LoadDll(function, inputModels);
+        }
+
+        public ResultsBase LoadDll(Function function, Dictionary<string, Model> inputModels)
+        {
+            string functionName = function.DllName;
+
+            string dllPath = Path.Combine(function.Directory, functionName + ".dll");
 
             Init();
 
-            string functionName = function.DllName; //.FunctionDefinition.Name.Replace(" ", "");
-
-            string dllPath = Path.Combine(function.Directory, functionName + ".dll");
-            string dependenciesPathNew = Path.Combine(function.Directory, functionName + ".Dependencies.dll");
-
-            // Load function dll
             Assembly DLL = Assembly.LoadFile(dllPath);
             // Load dependencies
             string dependenciesPath = Path.GetDirectoryName(dllPath) + "\\" + Path.GetFileNameWithoutExtension(dllPath) + ".Dependencies.dll";
@@ -60,8 +64,6 @@ namespace ElementsCADUI.Services
 
             if (functionType != null)
             {
-                // var c = Activator.CreateInstance(functionType);
-                // string bucketName = , string uploadsBucket = , Dictionary<string, string> modelInputKeys = null, string gltfKey = string elementsKey = , string ifcKey = 
 
                 Dictionary<string, string> modelInputKeys = new Dictionary<string, string>();
                 object[] s3Args = { "hypar-executions", "hypar-uploads", modelInputKeys, "model.glb", "model.json", "model.ifc" };
@@ -81,20 +83,21 @@ namespace ElementsCADUI.Services
                     propertyInfo.SetValue(inputs, keyValuePair.Value, null);
                 }
 
-                Dictionary<string, Model> inputModels = new Dictionary<string, Model>();
+                //  = new Dictionary<string, Model>();
 
                 object outputs = functionType.InvokeMember(
                     "Execute", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public,
                  null, null, new object[] { inputModels, inputs });
 
-                ResultsBase outputsBase = outputs as ResultsBase;
+                ResultsBase resultBase = outputs as ResultsBase;
 
-
-                string OUTPUT = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\Output/";
-                outputsBase.Model.ToGlTF(OUTPUT + "Output.glb");
+                return resultBase;
+            }
+            else
+            {
+                throw new ArgumentNullException("Could not found the output type");
             }
         }
-
 
         Dictionary<string, Assembly> assemblies;
 
@@ -126,4 +129,6 @@ namespace ElementsCADUI.Services
             assemblies[assembly.FullName] = assembly;
         }
     }
+
+
 }

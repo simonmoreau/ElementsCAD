@@ -18,6 +18,7 @@ namespace ElementsCADUI.Models
             _inputsValues = new Dictionary<string, object>();
             _inputs = new ObservableCollection<InputDisplayable>();
 
+
             if (functionDefinition.InputSchema != null)
             {
                 Dictionary<string, HyparFunctionInputSchemaMetaSchemaValue> properties = functionDefinition.InputSchema.Properties.OrderBy(i => i.Value.HyparOrder).ToDictionary(pair => pair.Key, pair => pair.Value);
@@ -178,10 +179,7 @@ namespace ElementsCADUI.Models
                 }
             }
 
-
-
         }
-
 
 
         private string _directory;
@@ -218,12 +216,14 @@ namespace ElementsCADUI.Models
     {
         public FunctionDefinitionDisplayable(FunctionDefinition functionDefinition)
         {
-
+            Definition = functionDefinition;
             _name = functionDefinition.Name;
             if (!string.IsNullOrEmpty(functionDefinition.DisplayName)) { _name = functionDefinition.DisplayName; }
             _description = functionDefinition.Description;
 
         }
+
+        public FunctionDefinition Definition { get; set; }
 
         private string _name;
         public string Name

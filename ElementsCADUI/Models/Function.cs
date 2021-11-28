@@ -12,5 +12,7 @@ namespace ElementsCADUI.Models
         public string DllName { get; set; }
         // public FunctionDefinition FunctionDefinition { get; set; }
         public Dictionary<string, object> InputsValues { get; set; }
+
+        public string ModelOutput { get; set; }
     }
 }

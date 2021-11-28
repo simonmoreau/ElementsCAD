@@ -11,6 +11,9 @@ using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Diagnostics;
+using Elements;
+using Hypar.Functions.Execution;
+using Elements.Serialization.glTF;
 
 namespace ElementsCADUI.MainWindows
 {
@@ -44,6 +47,32 @@ namespace ElementsCADUI.MainWindows
                 function.DllName = textInfo.ToTitleCase(functionDisplayable.FunctionDefinition.Name).Replace(" ", "");
                 function.InputsValues = new Dictionary<string, object>();
 
+
+                // A key ? to the model output ("Envelope" for example)
+                if (functionDisplayable.FunctionDefinition.Definition.ModelOutput != null)
+                {
+                    function.ModelOutput = functionDisplayable.FunctionDefinition.Definition.ModelOutput;
+                }
+                
+                // The output of the model (an area, a quantity of created elements, ...)
+                if (functionDisplayable.FunctionDefinition.Definition.Outputs != null)
+                {
+                    Output[] outputs = functionDisplayable.FunctionDefinition.Definition.Outputs;
+                }
+
+                if (functionDisplayable.FunctionDefinition.Definition.ModelDependencies != null)
+                {
+                    // An array of model type that this function consume
+                    ModelDependencyElement[] modelDependencyElements = functionDisplayable.FunctionDefinition.Definition.ModelDependencies;
+
+                    foreach (ModelDependencyElement modelDependencyElement in modelDependencyElements)
+                    {
+                        // The model type that this function consumes.
+                        string modelType = modelDependencyElement.Name;
+                    }
+                }
+
+
                 foreach (InputDisplayable inputDisplayable in functionDisplayable.Inputs)
                 {
                     function.InputsValues.Add(inputDisplayable.Name.Replace(" ",""), inputDisplayable.Value);
@@ -54,10 +83,17 @@ namespace ElementsCADUI.MainWindows
 
             FunctionRunner functionRunner = new FunctionRunner();
 
+            Dictionary<string, Model> outputModels = new Dictionary<string, Model>();
+            ResultsBase resultBase = null;
+
             foreach (Function function in functions)
             {
-                functionRunner.RunFunction(function);
+                resultBase = functionRunner.RunFunction(function, outputModels);
+                outputModels.Add(function.ModelOutput, resultBase.Model);
             }
+
+            string OUTPUT = @"G:\My Drive\05 - Travail\Revit Dev\Hypar\Output/";
+            resultBase.Model.ToGlTF(OUTPUT + "Output.glb");
 
         }
 
