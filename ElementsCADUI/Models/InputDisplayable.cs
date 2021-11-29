@@ -241,6 +241,37 @@ namespace ElementsCADUI.Models
         }
     }
 
+    public class InputListField : InputDisplayable
+    {
+        public InputListField(InputElement inputElement, int order) : base(inputElement, order)
+        {
+            Value = new object[0];
+        }
+
+        public InputListField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
+        {
+            Value = property.Value.Default as object[];
+            Choices = property.Value.Enum.Select(v => v.ToString()).ToArray();
+
+            Items? itemsNullable = property.Value.Items;
+
+            if (itemsNullable.HasValue)
+            {
+                Items items = itemsNullable.Value;
+                // items.HyparFunctionInputSchemaMetaSchemaElement
+            }
+            
+        }
+
+
+        private string[] _choices;
+        public string[] Choices
+        {
+            get { return _choices; }
+            set { SetProperty(ref _choices, value); }
+        }
+    }
+
     public class InputColorField : InputDisplayable
     {
         public InputColorField(InputElement inputElement, int order) : base(inputElement, order)

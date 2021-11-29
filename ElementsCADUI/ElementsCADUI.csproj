@@ -246,6 +246,9 @@
     <Compile Include="InputControls\PointField.xaml.cs">
       <DependentUpon>PointField.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputControls\ListField.xaml.cs">
+      <DependentUpon>ListField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InputControls\SelectField.xaml.cs">
       <DependentUpon>SelectField.xaml</DependentUpon>
     </Compile>
@@ -310,6 +313,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="InputControls\PointField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InputControls\ListField.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
