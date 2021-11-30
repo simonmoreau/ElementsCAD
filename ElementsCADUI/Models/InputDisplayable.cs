@@ -246,29 +246,32 @@ namespace ElementsCADUI.Models
         public InputListField(InputElement inputElement, int order) : base(inputElement, order)
         {
             Value = new object[0];
+            Items = new List<InputDisplayable>();
         }
 
         public InputListField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
         {
             Value = property.Value.Default as object[];
-            Choices = property.Value.Enum.Select(v => v.ToString()).ToArray();
+            // Choices = property.Value.Enum.Select(v => v.ToString()).ToArray();
 
+            Items = new List<InputDisplayable>();
             Items? itemsNullable = property.Value.Items;
 
             if (itemsNullable.HasValue)
             {
                 Items items = itemsNullable.Value;
-                // items.HyparFunctionInputSchemaMetaSchemaElement
+
+                KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> keyValuePair = new KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue>(items.HyparFunctionInputSchemaMetaSchemaValue.Name, items.HyparFunctionInputSchemaMetaSchemaValue);
+                Items.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
             }
-            
         }
 
 
-        private string[] _choices;
-        public string[] Choices
+        private List<InputDisplayable> _items;
+        public List<InputDisplayable> Items
         {
-            get { return _choices; }
-            set { SetProperty(ref _choices, value); }
+            get { return _items; }
+            set { SetProperty(ref _items, value); }
         }
     }
 

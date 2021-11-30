@@ -160,6 +160,9 @@ namespace ElementsCADUI.Models
 
     public partial class HyparFunctionInputSchemaMetaSchemaValue
     {
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
         [JsonProperty("$comment", NullValueHandling = NullValueHandling.Ignore)]
         public string Comment { get; set; }
 
@@ -238,22 +241,22 @@ namespace ElementsCADUI.Models
         public Uri Schema { get; set; }
 
         [JsonProperty("additionalItems", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement AdditionalItems { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue AdditionalItems { get; set; }
 
         [JsonProperty("additionalProperties", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement AdditionalProperties { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue AdditionalProperties { get; set; }
 
         [JsonProperty("allOf", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement[] AllOf { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue[] AllOf { get; set; }
 
         [JsonProperty("anyOf", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement[] AnyOf { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue[] AnyOf { get; set; }
 
         [JsonProperty("const")]
         public object Const { get; set; }
 
         [JsonProperty("contains", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement Contains { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue Contains { get; set; }
 
         [JsonProperty("contentEncoding", NullValueHandling = NullValueHandling.Ignore)]
         public string ContentEncoding { get; set; }
@@ -265,7 +268,7 @@ namespace ElementsCADUI.Models
         public object Default { get; set; }
 
         [JsonProperty("definitions", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaElement> Definitions { get; set; }
+        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaValue> Definitions { get; set; }
 
         [JsonProperty("dependencies", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, DependencyValue> Dependencies { get; set; }
@@ -274,7 +277,7 @@ namespace ElementsCADUI.Models
         public string Description { get; set; }
 
         [JsonProperty("else", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement Else { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue Else { get; set; }
 
         [JsonProperty("enum", NullValueHandling = NullValueHandling.Ignore)]
         public object[] Enum { get; set; }
@@ -292,7 +295,7 @@ namespace ElementsCADUI.Models
         public string Format { get; set; }
 
         [JsonProperty("if", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement If { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue If { get; set; }
 
         [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
         public Items? Items { get; set; }
@@ -325,22 +328,22 @@ namespace ElementsCADUI.Models
         public double? MultipleOf { get; set; }
 
         [JsonProperty("not", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement Not { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue Not { get; set; }
 
         [JsonProperty("oneOf", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement[] OneOf { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue[] OneOf { get; set; }
 
         [JsonProperty("pattern", NullValueHandling = NullValueHandling.Ignore)]
         public string Pattern { get; set; }
 
         [JsonProperty("patternProperties", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaElement> PatternProperties { get; set; }
+        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaValue> PatternProperties { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaElement> Properties { get; set; }
+        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaValue> Properties { get; set; }
 
         [JsonProperty("propertyNames", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement PropertyNames { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue PropertyNames { get; set; }
 
         [JsonProperty("readOnly", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReadOnly { get; set; }
@@ -349,222 +352,7 @@ namespace ElementsCADUI.Models
         public string[] HyparFunctionInputSchemaMetaSchemaRequired { get; set; }
 
         [JsonProperty("then", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement Then { get; set; }
-
-        [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
-        public string Title { get; set; }
-
-        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
-        public TypeUnion? Type { get; set; }
-
-        [JsonProperty("uniqueItems", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UniqueItems { get; set; }
-
-        [JsonProperty("writeOnly", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WriteOnly { get; set; }
-    }
-
-    public partial class FluffyHyparConditionalControl
-    {
-        [JsonProperty("conditions")]
-        public ConditionsArray[] Conditions { get; set; }
-
-        [JsonProperty("defaultControl", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement DefaultControl { get; set; }
-    }
-
-    public partial class HyparFunctionInputSchemaMetaSchemaElement
-    {
-        [JsonProperty("$comment", NullValueHandling = NullValueHandling.Ignore)]
-        public string Comment { get; set; }
-
-        [JsonProperty("$hyparAdditionalPropertiesQuery", NullValueHandling = NullValueHandling.Ignore)]
-        public Query HyparAdditionalPropertiesQuery { get; set; }
-
-        [JsonProperty("$hyparAutocomplete", NullValueHandling = NullValueHandling.Ignore)]
-        public string[] HyparAutocomplete { get; set; }
-
-        /// <summary>
-        /// If true, this input will have a button to permit popping it out into a separate window or
-        /// widget.
-        /// </summary>
-        [JsonProperty("$hyparCanPopOut", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HyparCanPopOut { get; set; }
-
-        [JsonProperty("$hyparConditionalControl", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyHyparConditionalControl HyparConditionalControl { get; set; }
-
-        /// <summary>
-        /// Deprecate this input
-        /// </summary>
-        [JsonProperty("$hyparDeprecated", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HyparDeprecated { get; set; }
-
-        /// <summary>
-        /// Turn on this flag to disable 'Sample Range' on an input.
-        /// </summary>
-        [JsonProperty("$hyparDisableRange", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HyparDisableRange { get; set; }
-
-        /// <summary>
-        /// Set the visible name of an input without changing how it is represented in internal data.
-        /// </summary>
-        [JsonProperty("$hyparDisplayName", NullValueHandling = NullValueHandling.Ignore)]
-        public string HyparDisplayName { get; set; }
-
-        [JsonProperty("$hyparEnumQuery", NullValueHandling = NullValueHandling.Ignore)]
-        public Query HyparEnumQuery { get; set; }
-
-        [JsonProperty("$hyparHidden", NullValueHandling = NullValueHandling.Ignore)]
-        public string[] HyparHidden { get; set; }
-
-        /// <summary>
-        /// Utilize this property to lock the default value of an input.
-        /// </summary>
-        [JsonProperty("$hyparLock", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparLock? HyparLock { get; set; }
-
-        /// <summary>
-        /// This value sets the order of this input in display. Usually it is unnecessary to set this
-        /// explicitly, it will be added when you publish.
-        /// </summary>
-        [JsonProperty("$hyparOrder", NullValueHandling = NullValueHandling.Ignore)]
-        public double? HyparOrder { get; set; }
-
-        /// <summary>
-        /// Make the display of this property conditional on the value of another property.
-        /// </summary>
-        [JsonProperty("$hyparShowIf", NullValueHandling = NullValueHandling.Ignore)]
-        public PurpleHyparShowIf HyparShowIf { get; set; }
-
-        [JsonProperty("$hyparStyle", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparStyle? HyparStyle { get; set; }
-
-        [JsonProperty("$hyparValueQuery", NullValueHandling = NullValueHandling.Ignore)]
-        public ValueQuery HyparValueQuery { get; set; }
-
-        [JsonProperty("$id", NullValueHandling = NullValueHandling.Ignore)]
-        public string Id { get; set; }
-
-        [JsonProperty("$ref", NullValueHandling = NullValueHandling.Ignore)]
-        public string Ref { get; set; }
-
-        [JsonProperty("$schema", NullValueHandling = NullValueHandling.Ignore)]
-        public Uri Schema { get; set; }
-
-        [JsonProperty("additionalItems", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement AdditionalItems { get; set; }
-
-        [JsonProperty("additionalProperties", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement AdditionalProperties { get; set; }
-
-        [JsonProperty("allOf", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement[] AllOf { get; set; }
-
-        [JsonProperty("anyOf", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement[] AnyOf { get; set; }
-
-        [JsonProperty("const")]
-        public object Const { get; set; }
-
-        [JsonProperty("contains", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement Contains { get; set; }
-
-        [JsonProperty("contentEncoding", NullValueHandling = NullValueHandling.Ignore)]
-        public string ContentEncoding { get; set; }
-
-        [JsonProperty("contentMediaType", NullValueHandling = NullValueHandling.Ignore)]
-        public string ContentMediaType { get; set; }
-
-        [JsonProperty("default")]
-        public object Default { get; set; }
-
-        [JsonProperty("definitions", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaElement> Definitions { get; set; }
-
-        [JsonProperty("dependencies", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, DependencyValue> Dependencies { get; set; }
-
-        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-        public string Description { get; set; }
-
-        [JsonProperty("else", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement Else { get; set; }
-
-        [JsonProperty("enum", NullValueHandling = NullValueHandling.Ignore)]
-        public object[] Enum { get; set; }
-
-        [JsonProperty("examples", NullValueHandling = NullValueHandling.Ignore)]
-        public bool[] Examples { get; set; }
-
-        [JsonProperty("exclusiveMaximum", NullValueHandling = NullValueHandling.Ignore)]
-        public double? ExclusiveMaximum { get; set; }
-
-        [JsonProperty("exclusiveMinimum", NullValueHandling = NullValueHandling.Ignore)]
-        public double? ExclusiveMinimum { get; set; }
-
-        [JsonProperty("format", NullValueHandling = NullValueHandling.Ignore)]
-        public string Format { get; set; }
-
-        [JsonProperty("if", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement If { get; set; }
-
-        [JsonProperty("items", NullValueHandling = NullValueHandling.Ignore)]
-        public Items? Items { get; set; }
-
-        [JsonProperty("maximum", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Maximum { get; set; }
-
-        [JsonProperty("maxItems", NullValueHandling = NullValueHandling.Ignore)]
-        public long? MaxItems { get; set; }
-
-        [JsonProperty("maxLength", NullValueHandling = NullValueHandling.Ignore)]
-        public long? MaxLength { get; set; }
-
-        [JsonProperty("maxProperties", NullValueHandling = NullValueHandling.Ignore)]
-        public long? MaxProperties { get; set; }
-
-        [JsonProperty("minimum", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Minimum { get; set; }
-
-        [JsonProperty("minItems", NullValueHandling = NullValueHandling.Ignore)]
-        public long? MinItems { get; set; }
-
-        [JsonProperty("minLength", NullValueHandling = NullValueHandling.Ignore)]
-        public long? MinLength { get; set; }
-
-        [JsonProperty("minProperties", NullValueHandling = NullValueHandling.Ignore)]
-        public long? MinProperties { get; set; }
-
-        [JsonProperty("multipleOf", NullValueHandling = NullValueHandling.Ignore)]
-        public double? MultipleOf { get; set; }
-
-        [JsonProperty("not", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement Not { get; set; }
-
-        [JsonProperty("oneOf", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement[] OneOf { get; set; }
-
-        [JsonProperty("pattern", NullValueHandling = NullValueHandling.Ignore)]
-        public string Pattern { get; set; }
-
-        [JsonProperty("patternProperties", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaElement> PatternProperties { get; set; }
-
-        [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, HyparFunctionInputSchemaMetaSchemaElement> Properties { get; set; }
-
-        [JsonProperty("propertyNames", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement PropertyNames { get; set; }
-
-        [JsonProperty("readOnly", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ReadOnly { get; set; }
-
-        [JsonProperty("required", NullValueHandling = NullValueHandling.Ignore)]
-        public string[] HyparFunctionInputSchemaMetaSchemaRequired { get; set; }
-
-        [JsonProperty("then", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement Then { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue Then { get; set; }
 
         [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
@@ -636,7 +424,7 @@ namespace ElementsCADUI.Models
         public ConditionsArray[] Conditions { get; set; }
 
         [JsonProperty("defaultControl", NullValueHandling = NullValueHandling.Ignore)]
-        public HyparFunctionInputSchemaMetaSchemaElement DefaultControl { get; set; }
+        public HyparFunctionInputSchemaMetaSchemaValue DefaultControl { get; set; }
     }
 
     /// <summary>
@@ -831,19 +619,19 @@ namespace ElementsCADUI.Models
 
     public partial struct Items
     {
-        public HyparFunctionInputSchemaMetaSchemaElement HyparFunctionInputSchemaMetaSchemaElement;
-        public HyparFunctionInputSchemaMetaSchemaElement[] HyparFunctionInputSchemaMetaSchemaElementArray;
+        public HyparFunctionInputSchemaMetaSchemaValue HyparFunctionInputSchemaMetaSchemaValue;
+        public HyparFunctionInputSchemaMetaSchemaValue[] HyparFunctionInputSchemaMetaSchemaValueArray;
 
-        public static implicit operator Items(HyparFunctionInputSchemaMetaSchemaElement HyparFunctionInputSchemaMetaSchemaElement) => new Items { HyparFunctionInputSchemaMetaSchemaElement = HyparFunctionInputSchemaMetaSchemaElement };
-        public static implicit operator Items(HyparFunctionInputSchemaMetaSchemaElement[] HyparFunctionInputSchemaMetaSchemaElementArray) => new Items { HyparFunctionInputSchemaMetaSchemaElementArray = HyparFunctionInputSchemaMetaSchemaElementArray };
+        public static implicit operator Items(HyparFunctionInputSchemaMetaSchemaValue HyparFunctionInputSchemaMetaSchemaElement) => new Items { HyparFunctionInputSchemaMetaSchemaValue = HyparFunctionInputSchemaMetaSchemaElement };
+        public static implicit operator Items(HyparFunctionInputSchemaMetaSchemaValue[] HyparFunctionInputSchemaMetaSchemaElementArray) => new Items { HyparFunctionInputSchemaMetaSchemaValueArray = HyparFunctionInputSchemaMetaSchemaElementArray };
     }
 
     public partial struct DependencyValue
     {
-        public HyparFunctionInputSchemaMetaSchemaElement HyparFunctionInputSchemaMetaSchemaElement;
+        public HyparFunctionInputSchemaMetaSchemaValue HyparFunctionInputSchemaMetaSchemaElement;
         public string[] StringArray;
 
-        public static implicit operator DependencyValue(HyparFunctionInputSchemaMetaSchemaElement HyparFunctionInputSchemaMetaSchemaElement) => new DependencyValue { HyparFunctionInputSchemaMetaSchemaElement = HyparFunctionInputSchemaMetaSchemaElement };
+        public static implicit operator DependencyValue(HyparFunctionInputSchemaMetaSchemaValue HyparFunctionInputSchemaMetaSchemaElement) => new DependencyValue { HyparFunctionInputSchemaMetaSchemaElement = HyparFunctionInputSchemaMetaSchemaElement };
         public static implicit operator DependencyValue(string[] StringArray) => new DependencyValue { StringArray = StringArray };
     }
 
@@ -1291,7 +1079,7 @@ namespace ElementsCADUI.Models
             switch (reader.TokenType)
             {
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<HyparFunctionInputSchemaMetaSchemaElement>(reader);
+                    var objectValue = serializer.Deserialize<HyparFunctionInputSchemaMetaSchemaValue>(reader);
                     return new DependencyValue { HyparFunctionInputSchemaMetaSchemaElement = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<string[]>(reader);
@@ -1328,11 +1116,11 @@ namespace ElementsCADUI.Models
             switch (reader.TokenType)
             {
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<HyparFunctionInputSchemaMetaSchemaElement>(reader);
-                    return new Items { HyparFunctionInputSchemaMetaSchemaElement = objectValue };
+                    var objectValue = serializer.Deserialize<HyparFunctionInputSchemaMetaSchemaValue>(reader);
+                    return new Items { HyparFunctionInputSchemaMetaSchemaValue = objectValue };
                 case JsonToken.StartArray:
-                    var arrayValue = serializer.Deserialize<HyparFunctionInputSchemaMetaSchemaElement[]>(reader);
-                    return new Items { HyparFunctionInputSchemaMetaSchemaElementArray = arrayValue };
+                    var arrayValue = serializer.Deserialize<HyparFunctionInputSchemaMetaSchemaValue[]>(reader);
+                    return new Items { HyparFunctionInputSchemaMetaSchemaValueArray = arrayValue };
             }
             throw new Exception("Cannot unmarshal type Items");
         }
@@ -1340,14 +1128,14 @@ namespace ElementsCADUI.Models
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
         {
             var value = (Items)untypedValue;
-            if (value.HyparFunctionInputSchemaMetaSchemaElementArray != null)
+            if (value.HyparFunctionInputSchemaMetaSchemaValueArray != null)
             {
-                serializer.Serialize(writer, value.HyparFunctionInputSchemaMetaSchemaElementArray);
+                serializer.Serialize(writer, value.HyparFunctionInputSchemaMetaSchemaValueArray);
                 return;
             }
-            if (value.HyparFunctionInputSchemaMetaSchemaElement != null)
+            if (value.HyparFunctionInputSchemaMetaSchemaValue != null)
             {
-                serializer.Serialize(writer, value.HyparFunctionInputSchemaMetaSchemaElement);
+                serializer.Serialize(writer, value.HyparFunctionInputSchemaMetaSchemaValue);
                 return;
             }
             throw new Exception("Cannot marshal type Items");

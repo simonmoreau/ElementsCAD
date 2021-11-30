@@ -81,16 +81,18 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
 
             if (inputListField != null)
             {
-                selector.ItemsSource = inputListField.Choices;
+                listview.ItemsSource = inputListField.Items;
 
-                if (inputListField.Value != null)
-                {
-                    selector.SelectedItem = inputListField.Value;
-                }
+                //Binding myBinding = new Binding();
+                //myBinding.Source = inputListField;
+                //myBinding.Path = new PropertyPath("Items");
+                //myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                //BindingOperations.SetBinding(listview, ListView.ItemsSourceProperty, myBinding);
 
-                SetBinding();
+
+
+                // SetBinding();
             }
-            // TextLabel.Text = e.NewValue?.ToString();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ElementsCADUI.Models
 
                 foreach (KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property in properties)
                 {
-                    AddInputFromInputSchema(property);
+                    _inputs.Add(GetInputFromInputSchema(property));
                 }
             }
 
@@ -38,7 +38,7 @@ namespace ElementsCADUI.Models
 
                     _inputsValues.Add(inputElement.InputClass.Name.ToString(), null);
 
-                    AddInputFromInputElement(inputElement, order);
+                    _inputs.Add(GetInputFromInputElement(inputElement, order));
 
                     order++;
                 }
@@ -75,72 +75,60 @@ namespace ElementsCADUI.Models
             set { SetProperty(ref _inputs, value); }
         }
 
-        private void AddInputFromInputElement(InputElement inputElement, int order)
+        public static InputDisplayable GetInputFromInputElement(InputElement inputElement, int order)
         {
             switch (inputElement.InputClass.Type)
             {
                 case InputType.Boolean:
-                    _inputs.Add(new InputBooleanToggle(inputElement, order));
-                    break;
+                    return new InputBooleanToggle(inputElement, order);
                 case InputType.Choice:
-                    _inputs.Add(new InputDisplayable(inputElement, order));
-                    break;
+                    return new InputDisplayable(inputElement, order);
                 case InputType.Data:
-                    _inputs.Add(new InputDisplayable(inputElement, order));
-                    break;
+                    return new InputDisplayable(inputElement, order);
                 case InputType.Geometry:
                     switch (inputElement.InputClass.PrimitiveType)
                     {
                         case PrimitiveType.Polygon:
-                            _inputs.Add(new InputPolygonField(inputElement, order));
-                            break;
+                            return new InputPolygonField(inputElement, order);
                         case PrimitiveType.Polyline:
-                            _inputs.Add(new InputPolylineField(inputElement, order));
-                            break;
+                            return new InputPolylineField(inputElement, order);
                         default:
-                            break;
+                            return new InputDisplayable(inputElement, order);
                     }
-                    break;
                 case InputType.List:
-                    _inputs.Add(new InputDisplayable(inputElement, order));
-                    break;
+                    return new InputDisplayable(inputElement, order);
                 case InputType.Location:
-                    _inputs.Add(new InputDisplayable(inputElement, order));
-                    break;
+                    return new InputDisplayable(inputElement, order);
                 case InputType.Number:
-                    _inputs.Add(new InputNumberField(inputElement, order));
-                    break;
+                    return new InputNumberField(inputElement, order);
                 case InputType.Range:
-                    _inputs.Add(new InputNumberSlider(inputElement, order));
-                    break;
+                    return new InputNumberSlider(inputElement, order);
                 case InputType.String:
-                    _inputs.Add(new InputStringField(inputElement, order));
-                    break;
+                    return new InputStringField(inputElement, order);
                 default:
-                    _inputs.Add(new InputDisplayable(inputElement, order));
-                    break;
+                    return new InputDisplayable(inputElement, order);
             }
         }
 
-        private void AddInputFromInputSchema(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property)
+        public static InputDisplayable GetInputFromInputSchema(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property)
         {
             HyparFunctionInputSchemaMetaSchemaValue value = property.Value;
 
             if (value.HyparStyle == HyparStyle.Number)
             {
-                _inputs.Add(new InputNumberField(property));
+                return new InputNumberField(property);
             }
             else if (value.HyparStyle == HyparStyle.Standard)
             {
-                _inputs.Add(new InputDisplayable(property));
+                return new InputDisplayable(property);
             }
             else if (value.HyparStyle == HyparStyle.Matrix)
             {
-                _inputs.Add(new InputDisplayable(property));
+                return new InputDisplayable(property);
             }
             else if (value.HyparStyle == HyparStyle.Row)
             {
-                _inputs.Add(new InputDisplayable(property));
+                return new InputDisplayable(property);
             }
             else
             {
@@ -149,36 +137,28 @@ namespace ElementsCADUI.Models
                     switch (value.Type.Value.Enum)
                     {
                         case SimpleTypes.Array:
-                            _inputs.Add(new InputDisplayable(property));
-                            break;
+                            return new InputListField(property);
                         case SimpleTypes.Boolean:
-                            _inputs.Add(new InputBooleanToggle(property));
-                            break;
+                            return new InputBooleanToggle(property);
                         case SimpleTypes.Integer:
-                            _inputs.Add(new InputIntegerField(property));
-                            break;
+                            return new InputIntegerField(property);
                         case SimpleTypes.Null:
-                            _inputs.Add(new InputDisplayable(property));
-                            break;
+                            return new InputDisplayable(property);
                         case SimpleTypes.Number:
-                            _inputs.Add(new InputNumberSlider(property));
-                            break;
+                            return new InputNumberSlider(property);
                         case SimpleTypes.Object:
-                            _inputs.Add(new InputDisplayable(property));
-                            break;
+                            return new InputDisplayable(property);
                         case SimpleTypes.String:
                             if (value.Enum != null)
                             {
-                                _inputs.Add(new InputSelectField(property));
+                                return new InputSelectField(property);
                             }
                             else
                             {
-                                _inputs.Add(new InputStringField(property));
+                                return new InputStringField(property);
                             }
-                            break;
                         default:
-                            _inputs.Add(new InputDisplayable(property));
-                            break;
+                            return new InputDisplayable(property);
                     }
                 }
                 else
@@ -189,24 +169,22 @@ namespace ElementsCADUI.Models
                         switch (refSchema)
                         {
                             case "Vector3.json":
-                                _inputs.Add(new InputPointField(property));
-                                break;
+                                return new InputPointField(property);
                             case "Line.json":
-                                _inputs.Add(new InputLineField(property));
-                                break;
+                                return new InputLineField(property);
                             case "Polyline.json":
-                                _inputs.Add(new InputPolylineField(property));
-                                break;
+                                return new InputPolylineField(property);
                             case "Polygon.json":
-                                _inputs.Add(new InputPolygonField(property));
-                                break;
+                                return new InputPolygonField(property);
                             case "Color.json":
-                                _inputs.Add(new InputColorField(property));
-                                break;
+                                return new InputColorField(property);
                             default:
-                                _inputs.Add(new InputDisplayable(property));
-                                break;
+                                return new InputDisplayable(property);
                         }
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("Ref is null");
                     }
                 }
             }
