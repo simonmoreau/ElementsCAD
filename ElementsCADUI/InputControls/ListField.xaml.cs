@@ -81,13 +81,13 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
 
             if (inputListField != null)
             {
-                listview.ItemsSource = inputListField.Items;
+                // listview.ItemsSource = inputListField.Items;
 
-                //Binding myBinding = new Binding();
-                //myBinding.Source = inputListField;
-                //myBinding.Path = new PropertyPath("Items");
-                //myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                //BindingOperations.SetBinding(listview, ListView.ItemsSourceProperty, myBinding);
+                Binding myBinding = new Binding();
+                myBinding.Source = inputListField;
+                myBinding.Path = new PropertyPath("Value");
+                myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                BindingOperations.SetBinding(listview, ListView.ItemsSourceProperty, myBinding);
 
 
 

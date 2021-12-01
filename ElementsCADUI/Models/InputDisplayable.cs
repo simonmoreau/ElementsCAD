@@ -246,15 +246,16 @@ namespace ElementsCADUI.Models
         public InputListField(InputElement inputElement, int order) : base(inputElement, order)
         {
             Value = new object[0];
-            Items = new List<InputDisplayable>();
+            // Items = new List<InputDisplayable>();
         }
 
         public InputListField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
         {
-            Value = property.Value.Default as object[];
+            // Value = property.Value.Default as object[];
             // Choices = property.Value.Enum.Select(v => v.ToString()).ToArray();
 
-            Items = new List<InputDisplayable>();
+
+            List<InputDisplayable> list = new List<InputDisplayable>();
             Items? itemsNullable = property.Value.Items;
 
             if (itemsNullable.HasValue)
@@ -262,17 +263,21 @@ namespace ElementsCADUI.Models
                 Items items = itemsNullable.Value;
 
                 KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> keyValuePair = new KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue>(items.HyparFunctionInputSchemaMetaSchemaValue.Name, items.HyparFunctionInputSchemaMetaSchemaValue);
-                Items.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
+                list.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
+
+                Value = list;
             }
+
+
         }
 
 
-        private List<InputDisplayable> _items;
-        public List<InputDisplayable> Items
-        {
-            get { return _items; }
-            set { SetProperty(ref _items, value); }
-        }
+        //private List<InputDisplayable> _items;
+        //public List<InputDisplayable> Items
+        //{
+        //    get { return _items; }
+        //    set { SetProperty(ref _items, value); }
+        //}
     }
 
     public class InputColorField : InputDisplayable
