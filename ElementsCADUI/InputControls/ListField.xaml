@@ -8,123 +8,97 @@
              xmlns:local="clr-namespace:ElementsCADUI.InputControls"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="100">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="TabContentPresenter" TargetType="ContentControl">
+            <StackPanel>
+                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Text="{Binding Description}"/>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentPresenter Grid.Column="0" />
+                    <Button Click="RemoveItem" Tag="{Binding}" Grid.Column="1">X</Button>
+                </Grid>
+                <TextBlock Text="{Binding Value}"/>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid>
-        <ListView Name="listview"
+        <StackPanel>
+            <ListView Name="listview"
                   HorizontalContentAlignment="Stretch"
                   ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.Resources>
-                <DataTemplate DataType="{x:Type models:InputNumberField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input number</TextBlock>
-                        <controls:NumberField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputNumberSlider}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputNumberSlider</TextBlock>
-                        <controls:NumberSlider Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputBooleanToggle}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputNumberSlider</TextBlock>
-                        <controls:BooleanToggle Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputIntegerField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputIntegerField</TextBlock>
-                        <controls:IntegerField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputStringField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputStringField</TextBlock>
-                        <controls:StringField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputColorField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputColorField</TextBlock>
-                        <controls:ColorField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputPointField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputPointField</TextBlock>
-                        <controls:PointField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputSelectField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputSelectField</TextBlock>
-                        <controls:SelectField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputLineField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputLineField</TextBlock>
-                        <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value.Start}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputPolylineField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputPolylineField</TextBlock>
-                        <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value.Start}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputPolygonField}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputPolygonField</TextBlock>
-                        <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
-                        <TextBlock Text="{Binding Value.Start}"/>
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:InputDisplayable}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock>input InputDisplayable</TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.Resources>
-            <ListView.Template>
-                <ControlTemplate>
-                    <ItemsPresenter></ItemsPresenter>
-                </ControlTemplate>
-            </ListView.Template>
-        </ListView>
+                <ListView.Resources>
+                    <DataTemplate DataType="{x:Type models:InputNumberField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:NumberField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputNumberSlider}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:NumberSlider Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputBooleanToggle}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:BooleanToggle Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputIntegerField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:IntegerField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputStringField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:StringField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputColorField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:ColorField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputPointField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:PointField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputSelectField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:SelectField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputLineField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputPolylineField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputPolygonField}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                            <controls:CurveField Input="{Binding}" Value="{Binding Value, Mode=TwoWay}"/>
+                        </ContentControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type models:InputDisplayable}">
+                        <ContentControl Template="{StaticResource  TabContentPresenter}">
+                        </ContentControl>
+                    </DataTemplate>
+                </ListView.Resources>
+                <ListView.Template>
+                    <ControlTemplate>
+                        <ItemsPresenter></ItemsPresenter>
+                    </ControlTemplate>
+                </ListView.Template>
+            </ListView>
+            <Button Width="60" Height="22" Click="AddItem" Panel.ZIndex="3">Add Row</Button>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -94,5 +94,16 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
                 // SetBinding();
             }
         }
+
+        private void AddItem(object sender, RoutedEventArgs e)
+        {
+            Input.AddInput();
+        }
+
+        private void RemoveItem(object sender, RoutedEventArgs e)
+        {
+            InputDisplayable inputDisplayable = (InputDisplayable)((Button)sender).Tag;
+            Input.RemoveInput(inputDisplayable);
+        }
     }
 }

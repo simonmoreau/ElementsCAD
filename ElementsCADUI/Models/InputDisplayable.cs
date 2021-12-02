@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Elements.Geometry;
+using System.Collections.ObjectModel;
 
 namespace ElementsCADUI.Models
 {
@@ -249,35 +250,42 @@ namespace ElementsCADUI.Models
             // Items = new List<InputDisplayable>();
         }
 
+        private ObservableCollection<InputDisplayable> list;
+        private KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> keyValuePair;
+
         public InputListField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
         {
-            // Value = property.Value.Default as object[];
-            // Choices = property.Value.Enum.Select(v => v.ToString()).ToArray();
 
-
-            List<InputDisplayable> list = new List<InputDisplayable>();
+            list  = new ObservableCollection<InputDisplayable>();
             Items? itemsNullable = property.Value.Items;
 
             if (itemsNullable.HasValue)
             {
                 Items items = itemsNullable.Value;
 
-                KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> keyValuePair = new KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue>(items.HyparFunctionInputSchemaMetaSchemaValue.Name, items.HyparFunctionInputSchemaMetaSchemaValue);
+                 keyValuePair = new KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue>(items.HyparFunctionInputSchemaMetaSchemaValue.Name, items.HyparFunctionInputSchemaMetaSchemaValue);
+
                 list.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
 
                 Value = list;
             }
 
-
         }
 
+        public void AddInput()
+        {
+            list.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
 
-        //private List<InputDisplayable> _items;
-        //public List<InputDisplayable> Items
-        //{
-        //    get { return _items; }
-        //    set { SetProperty(ref _items, value); }
-        //}
+            Value = list;
+        }
+
+        public void RemoveInput(InputDisplayable item)
+        {
+            list.Remove(item);
+
+            Value = list;
+        }
+
     }
 
     public class InputColorField : InputDisplayable
