@@ -85,7 +85,7 @@ PropertyMetadata(null, new PropertyChangedCallback(OnInputChanged)));
 
                 Binding myBinding = new Binding();
                 myBinding.Source = inputListField;
-                myBinding.Path = new PropertyPath("Value");
+                myBinding.Path = new PropertyPath("InnerList");
                 myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                 BindingOperations.SetBinding(listview, ListView.ItemsSourceProperty, myBinding);
 

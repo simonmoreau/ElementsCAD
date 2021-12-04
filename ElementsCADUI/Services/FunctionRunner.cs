@@ -29,7 +29,7 @@ namespace ElementsCADUI.Services
 
             Init();
 
-            Assembly DLL = Assembly.LoadFile(dllPath);
+            Assembly DLL = Assembly.LoadFrom(dllPath);
             // Load dependencies
             string dependenciesPath = Path.GetDirectoryName(dllPath) + "\\" + Path.GetFileNameWithoutExtension(dllPath) + ".Dependencies.dll";
 

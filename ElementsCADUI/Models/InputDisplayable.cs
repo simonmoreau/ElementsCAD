@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Elements.Geometry;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace ElementsCADUI.Models
 {
@@ -246,17 +247,16 @@ namespace ElementsCADUI.Models
     {
         public InputListField(InputElement inputElement, int order) : base(inputElement, order)
         {
-            Value = new object[0];
+            Value = new List<object>();
             // Items = new List<InputDisplayable>();
         }
 
-        private ObservableCollection<InputDisplayable> list;
         private KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> keyValuePair;
 
         public InputListField(KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue> property) : base(property)
         {
 
-            list  = new ObservableCollection<InputDisplayable>();
+            InnerList = new ObservableCollection<InputDisplayable>();
             Items? itemsNullable = property.Value.Items;
 
             if (itemsNullable.HasValue)
@@ -265,25 +265,48 @@ namespace ElementsCADUI.Models
 
                  keyValuePair = new KeyValuePair<string, HyparFunctionInputSchemaMetaSchemaValue>(items.HyparFunctionInputSchemaMetaSchemaValue.Name, items.HyparFunctionInputSchemaMetaSchemaValue);
 
-                list.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
+                InnerList.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
 
-                Value = list;
+                Value = CreateList();
             }
 
         }
 
         public void AddInput()
         {
-            list.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
+            InnerList.Add(FunctionDisplayable.GetInputFromInputSchema(keyValuePair));
 
-            Value = list;
+            Value = CreateList(); // InnerList.Select(i => Convert.ChangeType(i.Value, type)).ToList();
+
         }
 
         public void RemoveInput(InputDisplayable item)
         {
-            list.Remove(item);
+            InnerList.Remove(item);
 
-            Value = list;
+            Type type = InnerList.FirstOrDefault()?.Value.GetType();
+            Value = CreateList();
+        }
+
+        private ObservableCollection<InputDisplayable> _innerList;
+        public ObservableCollection<InputDisplayable> InnerList
+        {
+            get { return _innerList; }
+            set { SetProperty(ref _innerList, value); }
+        }
+
+        private IList CreateList()
+        {
+            Type type = InnerList.FirstOrDefault()?.Value.GetType();
+            Type listType = typeof(List<>).MakeGenericType(new[] { type });
+            IList list = (IList)Activator.CreateInstance(listType);
+
+            foreach (InputDisplayable inputDisplayable in InnerList)
+            {
+                list.Add(inputDisplayable.Value);
+            }
+
+            return list;
         }
 
     }
